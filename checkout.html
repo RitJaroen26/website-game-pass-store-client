@@ -1,0 +1,514 @@
+<!doctype html>
+
+<html class="dark" lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>GAMELORD - Checkout</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@400;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #020412;
+        color: #e0e3e5;
+      }
+      .glass-card {
+        background: rgba(10, 16, 61, 0.4);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .neon-glow:hover {
+        box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+      }
+      .scan-line {
+        position: relative;
+        overflow: hidden;
+      }
+      .scan-line::after {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(0, 242, 255, 0.1),
+          transparent
+        );
+        animation: scan 3s linear infinite;
+      }
+      @keyframes scan {
+        0% {
+          top: -100%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#004f54",
+              "on-surface": "#e0e3e5",
+              "surface-container": "#1d2022",
+              "surface-container-highest": "#323537",
+              "secondary-fixed": "#dfe0ff",
+              "on-background": "#e0e3e5",
+              "surface-variant": "#323537",
+              "error-container": "#93000a",
+              "surface-container-low": "#191c1e",
+              surface: "#101415",
+              "primary-fixed": "#d8e2ff",
+              "on-secondary": "#282d53",
+              "on-tertiary-fixed": "#002022",
+              "on-tertiary": "#00363a",
+              "secondary-fixed-dim": "#bfc3f2",
+              "on-secondary-fixed-variant": "#3f446b",
+              "inverse-on-surface": "#2d3133",
+              "surface-dim": "#101415",
+              "on-primary-fixed": "#001a41",
+              tertiary: "#00dbe7",
+              "tertiary-container": "#00a0a9",
+              "surface-container-lowest": "#0b0f10",
+              "on-primary-container": "#00285b",
+              secondary: "#bfc3f2",
+              "inverse-primary": "#005bc0",
+              "on-primary-fixed-variant": "#004493",
+              "surface-container-high": "#272a2c",
+              "secondary-container": "#41466e",
+              "surface-tint": "#adc7ff",
+              "inverse-surface": "#e0e3e5",
+              "on-error": "#690005",
+              outline: "#8b90a0",
+              background: "#101415",
+              "outline-variant": "#414754",
+              error: "#ffb4ab",
+              "primary-fixed-dim": "#adc7ff",
+              "tertiary-fixed-dim": "#00dbe7",
+              "on-primary": "#002e68",
+              "surface-bright": "#363a3b",
+              "tertiary-fixed": "#74f5ff",
+              "on-tertiary-container": "#002f32",
+              "on-secondary-fixed": "#13183d",
+              "on-surface-variant": "#c1c6d7",
+              "on-secondary-container": "#b1b5e3",
+              "primary-container": "#4a8eff",
+              primary: "#adc7ff",
+              "on-error-container": "#ffdad6",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              gutter: "20px",
+              xl: "64px",
+              sm: "16px",
+              "container-max": "1280px",
+              lg: "40px",
+              md: "24px",
+              base: "4px",
+              xs: "8px",
+            },
+            fontFamily: {
+              display: ["Space Grotesk"],
+              "headline-lg": ["Space Grotesk"],
+              "label-bold": ["Inter"],
+              "body-md": ["Manrope"],
+              "body-lg": ["Manrope"],
+              "headline-md": ["Space Grotesk"],
+            },
+            fontSize: {
+              display: [
+                "48px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "700" }],
+              "label-bold": ["14px", { lineHeight: "1.2", fontWeight: "700" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-background font-body-md text-on-surface">
+    <!-- TopNavBar -->
+    <nav
+      class="fixed top-0 w-full z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl shadow-[0_0_20px_rgba(0,242,255,0.1)] transition-all duration-300 ease-out"
+    >
+      <div
+        class="flex justify-between items-center h-20 px-8 max-w-[1280px] mx-auto w-full"
+      >
+        <div
+          class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 font-display"
+        >
+          LOOTLEVEL
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a
+            class="font-display text-sm font-bold tracking-tight text-slate-400 hover:text-white transition-colors"
+            href="#"
+            >Marketplace</a
+          >
+          <a
+            class="font-display text-sm font-bold tracking-tight text-slate-400 hover:text-white transition-colors"
+            href="#"
+            >Sell Account</a
+          >
+          <a
+            class="font-display text-sm font-bold tracking-tight text-slate-400 hover:text-white transition-colors"
+            href="#"
+            >Boosting</a
+          >
+          <a
+            class="font-display text-sm font-bold tracking-tight text-slate-400 hover:text-white transition-colors"
+            href="#"
+            >Support</a
+          >
+        </div>
+        <div class="flex items-center space-x-6">
+          <div class="flex items-center space-x-4">
+            <button
+              class="material-symbols-outlined text-slate-400 hover:text-cyan-400 transition-colors"
+            >
+              notifications
+            </button>
+            <button
+              class="material-symbols-outlined text-slate-400 hover:text-cyan-400 transition-colors"
+            >
+              person
+            </button>
+          </div>
+          <button
+            class="px-6 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-label-bold text-sm neon-glow transition-all active:scale-95"
+          >
+            Connect Wallet
+          </button>
+        </div>
+      </div>
+    </nav>
+    <main class="pt-32 pb-20 px-8 max-w-[1280px] mx-auto">
+      <div class="flex flex-col lg:flex-row gap-12">
+        <!-- Left Column: Checkout Form -->
+        <div class="flex-1 space-y-12">
+          <header>
+            <h1 class="font-headline-lg text-display text-on-surface mb-2">
+              ตรวจสอบรายการสั่งซื้อ
+            </h1>
+            <p class="text-on-surface-variant font-body-lg">
+              กรุณาเลือกวิธีการชำระเงินและตรวจสอบข้อมูลบัญชีของคุณ
+            </p>
+          </header>
+          <!-- Item Details Card -->
+          <section
+            class="glass-card rounded-xl p-8 space-y-8 scan-line border-primary/20"
+          >
+            <div class="flex flex-col md:flex-row gap-8">
+              <div
+                class="w-full md:w-64 aspect-video rounded-lg overflow-hidden relative"
+              >
+                <img
+                  class="w-full h-full object-cover"
+                  data-alt="cinematic close-up of a heroic gaming character skin with glowing cyan armor and digital particle effects in a dark arena"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHWyTB5h9SJKa5UKzf9_-zdZ1fV33m2Jl_GN6Y3hqVpirWFwmFvL0UI5vntRYEplADF2EVQ-dJ8cgdaUw5DDyrF_w5oWOwCUQtwTUkc7CBf_SbEs3QTmWWXm8bDiOkVYZK5RUDmzepFXTJQEJFMtK7TqZ6jB-jH8bR8XIoI2kU7jA52dblV8IDE8vQt19mmwROgZUIoJJAnZxaCdiAxdHezasWLDbucZzM7GQYEZcFXIhmhe7cnMtaIxqAbtTtuHKB4b8zIwvpNX_c"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"
+                ></div>
+                <div
+                  class="absolute bottom-3 left-3 px-3 py-1 bg-cyan-400/20 backdrop-blur-md rounded border border-cyan-400/40"
+                >
+                  <span
+                    class="text-xs font-label-bold text-cyan-400 uppercase tracking-widest"
+                    >Featured</span
+                  >
+                </div>
+              </div>
+              <div class="flex-1 space-y-4">
+                <h2 class="font-headline-md text-on-surface">
+                  ROV Account ID: #2948192
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                  <div class="space-y-1">
+                    <span
+                      class="text-xs text-on-surface-variant font-label-bold uppercase"
+                      >Rank</span
+                    >
+                    <p
+                      class="text-on-surface font-body-lg flex items-center gap-2"
+                    >
+                      <span
+                        class="material-symbols-outlined text-tertiary"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >military_tech</span
+                      >
+                      Supreme Conqueror
+                    </p>
+                  </div>
+                  <div class="space-y-1">
+                    <span
+                      class="text-xs text-on-surface-variant font-label-bold uppercase"
+                      >Hero Count</span
+                    >
+                    <p
+                      class="text-on-surface font-body-lg flex items-center gap-2"
+                    >
+                      <span class="material-symbols-outlined text-tertiary"
+                        >group</span
+                      >
+                      114 ฮีโร่
+                    </p>
+                  </div>
+                  <div class="space-y-1">
+                    <span
+                      class="text-xs text-on-surface-variant font-label-bold uppercase"
+                      >Win Rate</span
+                    >
+                    <p
+                      class="text-on-surface font-body-lg flex items-center gap-2"
+                    >
+                      <span class="material-symbols-outlined text-tertiary"
+                        >trending_up</span
+                      >
+                      68.5%
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Payment Methods -->
+          <section class="space-y-6">
+            <h3 class="font-headline-md text-on-surface">
+              เลือกช่องทางการชำระเงิน
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Balance Option -->
+              <div
+                class="glass-card rounded-xl p-6 border-cyan-400 border-2 relative cursor-pointer group transition-all"
+              >
+                <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-12 h-12 rounded-lg bg-cyan-400/10 flex items-center justify-center"
+                    >
+                      <span
+                        class="material-symbols-outlined text-cyan-400 text-3xl"
+                        >account_balance_wallet</span
+                      >
+                    </div>
+                    <div>
+                      <p class="font-label-bold text-on-surface">
+                        ยอดเงินคงเหลือในระบบ
+                      </p>
+                      <p class="text-xs text-on-surface-variant">
+                        ยอดเงินปัจจุบัน: ฿15,200.00
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="w-6 h-6 rounded-full border-2 border-cyan-400 flex items-center justify-center"
+                  >
+                    <div class="w-3 h-3 rounded-full bg-cyan-400"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Direct Payment -->
+              <div
+                class="glass-card rounded-xl p-6 border-white/10 hover:border-cyan-400/50 cursor-pointer group transition-all"
+              >
+                <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center"
+                    >
+                      <span
+                        class="material-symbols-outlined text-on-surface-variant text-3xl"
+                        >payments</span
+                      >
+                    </div>
+                    <div>
+                      <p class="font-label-bold text-on-surface">
+                        ชำระเงินโดยตรง
+                      </p>
+                      <p class="text-xs text-on-surface-variant">
+                        PromptPay, QR Code, บัตรเครดิต
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="w-6 h-6 rounded-full border-2 border-white/10"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <!-- Right Column: Order Summary Sidebar -->
+        <aside class="w-full lg:w-96">
+          <div
+            class="glass-card rounded-xl p-8 sticky top-32 space-y-8 border-white/10 shadow-xl"
+          >
+            <h3
+              class="font-headline-md text-on-surface border-b border-white/5 pb-4"
+            >
+              สรุปการสั่งซื้อ
+            </h3>
+            <div class="space-y-4">
+              <div class="flex justify-between font-body-md">
+                <span class="text-on-surface-variant">ราคาบัญชี</span>
+                <span class="text-on-surface">฿8,500.00</span>
+              </div>
+              <div class="flex justify-between font-body-md">
+                <span class="text-on-surface-variant">ค่าธรรมเนียมการโอน</span>
+                <span class="text-on-surface">฿150.00</span>
+              </div>
+              <div class="flex justify-between font-body-md">
+                <span class="text-on-surface-variant">ส่วนลด (Voucher)</span>
+                <span class="text-tertiary">- ฿200.00</span>
+              </div>
+              <div
+                class="pt-4 border-t border-white/5 flex justify-between items-end"
+              >
+                <span class="font-label-bold text-on-surface">ราคาสุทธิ</span>
+                <div class="text-right">
+                  <span
+                    class="block text-xs text-cyan-400 font-label-bold uppercase mb-1"
+                    >Total Amount</span
+                  >
+                  <span class="text-3xl font-display font-black text-on-surface"
+                    >฿8,450.00</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="space-y-4 pt-4">
+              <button
+                class="w-full py-4 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-headline-md neon-glow transition-all active:scale-95 flex items-center justify-center gap-3"
+              >
+                ยืนยันการสั่งซื้อ
+                <span class="material-symbols-outlined">rocket_launch</span>
+              </button>
+              <p
+                class="text-[10px] text-center text-on-surface-variant px-4 leading-relaxed"
+              >
+                การกด "ยืนยันการสั่งซื้อ" แสดงว่าคุณยอมรับ
+                <a class="text-cyan-400 underline" href="#"
+                  >เงื่อนไขและข้อตกลง</a
+                >
+                ของทางแพลตฟอร์ม LootLevel
+              </p>
+            </div>
+            <div
+              class="bg-surface-container rounded-lg p-4 flex items-start gap-3"
+            >
+              <span class="material-symbols-outlined text-tertiary text-xl"
+                >verified_user</span
+              >
+              <div>
+                <p class="text-xs font-label-bold text-on-surface">
+                  Buyer Protection
+                </p>
+                <p class="text-[10px] text-on-surface-variant">
+                  รับประกันความปลอดภัย คืนเงินเต็มจำนวนหากข้อมูลไม่ถูกต้อง
+                </p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-slate-950 w-full border-t border-white/5 pt-16 pb-8">
+      <div
+        class="max-w-[1280px] mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-8"
+      >
+        <div class="space-y-4">
+          <div class="text-xl font-black text-slate-200 font-display">
+            LOOTLEVEL MARKETPLACE
+          </div>
+          <p class="text-slate-500 font-body-md max-w-sm">
+            แพลตฟอร์มซื้อขายไอดีเกมที่ปลอดภัยที่สุด
+            พร้อมระบบตรวจสอบและรับประกันบัญชี 100%
+          </p>
+          <div class="flex gap-4">
+            <span
+              class="material-symbols-outlined text-slate-400 hover:text-cyan-400 cursor-pointer transition-colors"
+              >brand_awareness</span
+            >
+            <span
+              class="material-symbols-outlined text-slate-400 hover:text-cyan-400 cursor-pointer transition-colors"
+              >public</span
+            >
+            <span
+              class="material-symbols-outlined text-slate-400 hover:text-cyan-400 cursor-pointer transition-colors"
+              >groups</span
+            >
+          </div>
+        </div>
+        <div
+          class="flex flex-col md:items-end justify-between space-y-8 md:space-y-0"
+        >
+          <div class="flex flex-wrap gap-x-8 gap-y-2">
+            <a
+              class="font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-cyan-400 transition-colors"
+              href="#"
+              >Terms of Service</a
+            >
+            <a
+              class="font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-cyan-400 transition-colors"
+              href="#"
+              >Privacy Policy</a
+            >
+            <a
+              class="font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-cyan-400 transition-colors"
+              href="#"
+              >Refund Policy</a
+            >
+            <a
+              class="font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-cyan-400 transition-colors"
+              href="#"
+              >Trust Center</a
+            >
+            <a
+              class="font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-cyan-400 transition-colors"
+              href="#"
+              >FAQ</a
+            >
+          </div>
+          <p
+            class="font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest text-slate-500"
+          >
+            © 2024 LOOTLEVEL MARKETPLACE. ALL RIGHTS RESERVED.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

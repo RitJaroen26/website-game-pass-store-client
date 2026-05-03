@@ -1,0 +1,1330 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Manrope:wght@300;400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#adc7ff",
+              "on-tertiary": "#00363a",
+              "surface-tint": "#adc7ff",
+              "inverse-surface": "#e0e3e5",
+              "on-tertiary-fixed": "#002022",
+              "surface-container-lowest": "#0b0f10",
+              "on-secondary": "#282d53",
+              "on-background": "#e0e3e5",
+              "surface-variant": "#323537",
+              "primary-container": "#4a8eff",
+              "on-secondary-container": "#b1b5e3",
+              "secondary-container": "#41466e",
+              "surface-dim": "#101415",
+              secondary: "#bfc3f2",
+              "tertiary-container": "#00a0a9",
+              "inverse-primary": "#005bc0",
+              "on-primary-container": "#00285b",
+              "tertiary-fixed": "#74f5ff",
+              "on-secondary-fixed-variant": "#3f446b",
+              "on-primary-fixed": "#001a41",
+              "on-error": "#690005",
+              "inverse-on-surface": "#2d3133",
+              "secondary-fixed-dim": "#bfc3f2",
+              surface: "#101415",
+              "tertiary-fixed-dim": "#00dbe7",
+              "on-tertiary-fixed-variant": "#004f54",
+              "surface-container-highest": "#323537",
+              "on-surface": "#e0e3e5",
+              "secondary-fixed": "#dfe0ff",
+              "surface-bright": "#363a3b",
+              "on-error-container": "#ffdad6",
+              "surface-container-low": "#191c1e",
+              "on-surface-variant": "#c1c6d7",
+              tertiary: "#00dbe7",
+              "on-primary-fixed-variant": "#004493",
+              "primary-fixed": "#d8e2ff",
+              "surface-container-high": "#272a2c",
+              "surface-container": "#1d2022",
+              "on-tertiary-container": "#002f32",
+              outline: "#8b90a0",
+              "on-secondary-fixed": "#13183d",
+              error: "#ffb4ab",
+              "outline-variant": "#414754",
+              "error-container": "#93000a",
+              primary: "#adc7ff",
+              background: "#101415",
+              "on-primary": "#002e68",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              sm: "16px",
+              "container-max": "1280px",
+              lg: "40px",
+              base: "4px",
+              gutter: "20px",
+              md: "24px",
+              xs: "8px",
+              xl: "64px",
+            },
+            fontFamily: {
+              "body-lg": ["Manrope"],
+              "label-bold": ["Inter"],
+              "headline-lg": ["Space Grotesk"],
+              "headline-md": ["Space Grotesk"],
+              "body-md": ["Manrope"],
+              display: ["Space Grotesk"],
+              headline: ["Space Grotesk"],
+              body: ["Manrope"],
+              label: ["Inter"],
+            },
+            fontSize: {
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "label-bold": ["14px", { lineHeight: "1.2", fontWeight: "700" }],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              display: [
+                "48px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .glass-card {
+        background: rgba(10, 16, 61, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .glow-hover:hover {
+        box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        border-color: #00dbe7;
+      }
+      .text-glow {
+        text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+      }
+      .scanning-line {
+        position: relative;
+        overflow: hidden;
+      }
+      .scanning-line::after {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(0, 242, 255, 0.1),
+          transparent
+        );
+        animation: scan 3s infinite linear;
+      }
+      @keyframes scan {
+        0% {
+          top: -100%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-surface text-on-surface font-body-md selection:bg-tertiary selection:text-on-tertiary"
+  >
+    <!-- TopNavBar -->
+    <header
+      class="fixed top-0 w-full z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl shadow-[0_0_20px_rgba(0,242,255,0.1)]"
+    >
+      <div
+        class="flex justify-between items-center h-20 px-8 max-w-[1280px] mx-auto w-full"
+      >
+        <div class="flex items-center gap-12">
+          <a
+            class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 font-display"
+            href="#"
+            style=""
+            onclick="window.location.href = 'Homepage.html'"
+            >RANDOM | ID</a
+          >
+          <nav class="hidden md:flex gap-8 items-center">
+            <a
+              class="font-label-bold text-cyan-400 border-b-2 border-cyan-400 pb-1 transition-all duration-300 ease-out active:scale-95"
+              href="#"
+              style=""
+              >Marketplace</a
+            >
+            <a
+              class="font-label-bold text-slate-400 hover:text-white transition-colors transition-all duration-300 ease-out active:scale-95"
+              href="#"
+              style=""
+              onclick="window.location.href = '#####.html'"
+              >Sell Account</a
+            >
+            <a
+              class="font-label-bold text-slate-400 hover:text-white transition-colors transition-all duration-300 ease-out active:scale-95"
+              href="#"
+              style=""
+              >Boosting</a
+            >
+            <a
+              class="font-label-bold text-slate-400 hover:text-white transition-colors transition-all duration-300 ease-out active:scale-95"
+              href="#"
+              style=""
+              >Support</a
+            >
+          </nav>
+        </div>
+        <div class="flex items-center gap-6">
+          <div
+            class="hidden lg:flex items-center bg-surface-container-high px-4 py-2 rounded-lg border border-white/5"
+          >
+            <span class="material-symbols-outlined text-slate-400 mr-2" style=""
+              >search</span
+            >
+            <input
+              class="bg-transparent border-none focus:ring-0 text-sm w-48 text-on-surface-variant"
+              placeholder="Search ROV accounts..."
+              type="text"
+            />
+          </div>
+          <div class="flex items-center gap-4">
+            <button
+              class="material-symbols-outlined text-slate-400 hover:text-cyan-400 transition-colors"
+              style=""
+            >
+              notifications
+            </button>
+            <button
+              class="material-symbols-outlined text-slate-400 hover:text-cyan-400 transition-colors"
+              style=""
+            >
+              person
+            </button>
+            <button
+              class="bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-label-bold px-6 py-2 rounded-lg hover:shadow-[0_0_15px_rgba(0,242,255,0.3)] transition-all duration-300 ease-out active:scale-95"
+              style=""
+              onclick="window.location.href = 'Checkout.html'"
+            >
+              Connect Wallet
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="pt-32 pb-xl max-w-[1280px] mx-auto px-8 min-h-screen">
+      <!-- Category Header -->
+      <div class="mb-lg">
+        <div class="flex items-center gap-4 mb-4">
+          <span
+            class="bg-tertiary/20 text-tertiary px-3 py-1 rounded font-label-bold text-xs uppercase tracking-widest border border-tertiary/30"
+            style=""
+            >Premium Category</span
+          >
+          <div
+            class="h-px flex-grow bg-gradient-to-r from-tertiary/50 to-transparent"
+          ></div>
+        </div>
+        <h1 class="font-display text-display text-on-background mb-2" style="">
+          Arena of Valor (ROV)
+        </h1>
+        <p class="font-body-lg text-on-surface-variant max-w-2xl" style="">
+          Browse the most prestigious ROV accounts across all servers. Verified
+          rankings, rare skins, and high-winrate masters.
+        </p>
+      </div>
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Sidebar Filters -->
+        <aside class="w-full lg:w-72 flex-shrink-0 space-y-6">
+          <div class="glass-card p-6 rounded-xl">
+            <h3
+              class="font-headline-md text-on-surface mb-6 flex items-center gap-2"
+              style=""
+            >
+              <span class="material-symbols-outlined text-tertiary" style=""
+                >filter_list</span
+              >
+              Filters
+            </h3>
+            <!-- Price Range -->
+            <div class="mb-8">
+              <label
+                class="font-label-bold text-xs uppercase tracking-widest text-slate-500 block mb-4"
+                >Price Range (฿)</label
+              >
+              <div class="flex items-center gap-2 mb-4">
+                <input
+                  id="minPrice"
+                  class="w-full bg-surface-container-lowest border border-white/10 rounded p-2 text-sm focus:border-tertiary focus:ring-0 transition-colors"
+                  placeholder="Min"
+                  type="number"
+                />
+                <span class="text-slate-600">-</span>
+                <input
+                  id="maxPrice"
+                  class="w-full bg-surface-container-lowest border border-white/10 rounded p-2 text-sm focus:border-tertiary focus:ring-0 transition-colors"
+                  placeholder="Max"
+                  type="number"
+                />
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <label
+                class="font-label-bold text-xs uppercase tracking-widest text-slate-500 block mb-4"
+                >Current Rank</label
+              >
+              <div id="rankFilters" class="space-y-3">
+                <label class="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    value="Eternal Legend"
+                    class="rank-checkbox w-5 h-5 rounded border-white/10 bg-surface-container-lowest text-tertiary focus:ring-tertiary"
+                    type="checkbox"
+                  />
+                  <span
+                    class="text-sm font-body-md text-on-surface-variant group-hover:text-tertiary transition-colors"
+                    >Eternal Legend</span
+                  >
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    value="Conqueror"
+                    class="rank-checkbox w-5 h-5 rounded border-white/10 bg-surface-container-lowest text-tertiary focus:ring-tertiary"
+                    type="checkbox"
+                  />
+                  <span
+                    class="text-sm font-body-md text-on-surface-variant group-hover:text-tertiary transition-colors"
+                    >Conqueror</span
+                  >
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    value="Master"
+                    class="rank-checkbox w-5 h-5 rounded border-white/10 bg-surface-container-lowest text-tertiary focus:ring-tertiary"
+                    type="checkbox"
+                  />
+                  <span
+                    class="text-sm font-body-md text-on-surface-variant group-hover:text-tertiary transition-colors"
+                    >Master</span
+                  >
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    value="Diamond"
+                    class="rank-checkbox w-5 h-5 rounded border-white/10 bg-surface-container-lowest text-tertiary focus:ring-tertiary"
+                    type="checkbox"
+                  />
+                  <span
+                    class="text-sm font-body-md text-on-surface-variant group-hover:text-tertiary transition-colors"
+                    >Diamond</span
+                  >
+                </label>
+              </div>
+            </div>
+            <!-- Rank Selection -->
+            <div class="mb-8">
+              <label
+                class="font-label-bold text-xs uppercase tracking-widest text-slate-500 block mb-4"
+                style=""
+                >Current Rank</label
+              >
+              <div class="space-y-3">
+                <label
+                  class="flex items-center gap-3 cursor-pointer group"
+                  style=""
+                >
+                  <input
+                    class="w-5 h-5 rounded border-white/10 bg-surface-container-lowest text-tertiary focus:ring-tertiary focus:ring-offset-surface"
+                    type="checkbox"
+                  />
+                  <span
+                    class="text-sm font-body-md text-on-surface-variant group-hover:text-tertiary transition-colors"
+                    style=""
+                    >Eternal Legend</span
+                  >
+                </label>
+                <label
+                  class="flex items-center gap-3 cursor-pointer group"
+                  style=""
+                >
+                  <input
+                    checked=""
+                    class="w-5 h-5 rounded border-white/10 bg-surface-container-lowest text-tertiary focus:ring-tertiary focus:ring-offset-surface"
+                    type="checkbox"
+                  />
+                  <span
+                    class="text-sm font-body-md text-on-surface-variant group-hover:text-tertiary transition-colors"
+                    style=""
+                    >Conqueror</span
+                  >
+                </label>
+                <label
+                  class="flex items-center gap-3 cursor-pointer group"
+                  style=""
+                >
+                  <input
+                    class="w-5 h-5 rounded border-white/10 bg-surface-container-lowest text-tertiary focus:ring-tertiary focus:ring-offset-surface"
+                    type="checkbox"
+                  />
+                  <span
+                    class="text-sm font-body-md text-on-surface-variant group-hover:text-tertiary transition-colors"
+                    style=""
+                    >Grand Conqueror</span
+                  >
+                </label>
+                <label
+                  class="flex items-center gap-3 cursor-pointer group"
+                  style=""
+                >
+                  <input
+                    class="w-5 h-5 rounded border-white/10 bg-surface-container-lowest text-tertiary focus:ring-tertiary focus:ring-offset-surface"
+                    type="checkbox"
+                  />
+                  <span
+                    class="text-sm font-body-md text-on-surface-variant group-hover:text-tertiary transition-colors"
+                    style=""
+                    >Master</span
+                  >
+                </label>
+              </div>
+            </div>
+            <!-- Hero Count -->
+            <div>
+              <label
+                class="font-label-bold text-xs uppercase tracking-widest text-slate-500 block mb-4"
+                >Hero Count</label
+              >
+              <div id="heroFilters" class="grid grid-cols-2 gap-2">
+                <button
+                  class="hero-btn bg-surface-container-lowest border border-white/10 py-2 rounded text-xs hover:border-tertiary transition-colors"
+                  data-heroes="50"
+                >
+                  50+
+                </button>
+                <button
+                  class="hero-btn bg-surface-container-lowest border border-white/10 py-2 rounded text-xs hover:border-tertiary transition-colors"
+                  data-heroes="80"
+                >
+                  80+
+                </button>
+                <button
+                  class="hero-btn bg-surface-container-lowest border border-white/10 py-2 rounded text-xs hover:border-tertiary transition-colors"
+                  data-heroes="100"
+                >
+                  100+
+                </button>
+                <button
+                  class="hero-btn bg-surface-container-lowest border border-white/10 py-2 rounded text-xs hover:border-tertiary transition-colors"
+                  data-heroes="0"
+                >
+                  All Heroes
+                </button>
+              </div>
+            </div>
+            <button
+              class="w-full mt-8 bg-surface-container-highest hover:bg-white/10 text-on-surface font-label-bold py-3 rounded transition-colors text-sm uppercase tracking-wider"
+              style=""
+            >
+              Reset All Filters
+            </button>
+          </div>
+          <div
+            class="glass-card p-6 rounded-xl bg-gradient-to-br from-blue-600/20 to-cyan-400/20 border-cyan-400/30"
+          >
+            <h4 class="font-headline-md text-tertiary mb-2" style="">
+              Sell your ROV Account
+            </h4>
+            <p class="text-xs text-on-surface-variant mb-4" style="">
+              Get the best price for your hard-earned skins and rankings.
+            </p>
+            <button
+              class="w-full bg-white text-slate-950 font-label-bold py-3 rounded text-sm hover:bg-cyan-50 transition-colors"
+              style=""
+            >
+              List Now
+            </button>
+            <div
+              class="account-card glass-card rounded-xl overflow-hidden glow-hover transition-all duration-500 group"
+              data-price="50"
+              data-rank="Conqueror"
+            ></div>
+            <div
+              class="account-card glass-card rounded-xl overflow-hidden glow-hover transition-all duration-500 group"
+              data-price="199"
+              data-rank="Eternal Legend"
+            ></div>
+          </div>
+        </aside>
+        <!-- Main Listing Grid -->
+        <div class="flex-grow">
+          <div class="flex justify-between items-center mb-6">
+            <p class="font-body-md text-on-surface-variant" style="">
+              <span class="text-tertiary font-bold" style="">124</span> Accounts
+              found
+            </p>
+            <div class="flex items-center gap-2">
+              <span
+                class="text-xs font-label-bold text-slate-500 uppercase"
+                style=""
+                >Sort by:</span
+              >
+              <select
+                class="bg-transparent border-none text-sm font-label-bold text-on-surface focus:ring-0 cursor-pointer"
+              >
+                <option>Latest Listed</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Hero Count</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <!-- Account Card 1 (Featured) -->
+            <div
+              class="glass-card rounded-xl overflow-hidden glow-hover transition-all duration-500 group scanning-line"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  alt="ROV Account Preview"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  data-alt="cinematic action shot of a powerful armored warrior character from a mobile battle arena game with magical blue energy effects"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCDJy3A5ultfOyU2jtwImip2foOByWCtzexQ&amp;s"
+                  style=""
+                />
+                <div
+                  class="absolute top-4 left-4 bg-yellow-500 text-slate-950 font-label-bold text-[10px] px-2 py-1 rounded uppercase tracking-widest"
+                  style=""
+                >
+                  Featured
+                </div>
+                <div
+                  class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-slate-950 to-transparent"
+                >
+                  <span class="flex items-center gap-1 text-tertiary" style="">
+                    <span
+                      class="material-symbols-outlined text-sm"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >verified</span
+                    >
+                    <span
+                      class="text-[10px] font-label-bold uppercase tracking-widest"
+                      style=""
+                      >Verified Seller</span
+                    >
+                  </span>
+                </div>
+              </div>
+              <div class="p-5">
+                <h3
+                  class="font-headline-md text-lg mb-4 text-on-surface group-hover:text-tertiary transition-colors"
+                  style=""
+                >
+                  ID เข้าใหม่สะอาด B
+                </h3>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Rank</span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >Platinum Conqueror</span
+                    >
+                  </div>
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >minimum Skins  </span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >69-380 Skins</span
+                    >
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Start PRICE</span
+                    >
+                    <span
+                      class="text-xl font-headline-md text-tertiary text-glow"
+                      style=""
+                      >฿50</span
+                    >
+                  </div>
+                  <div
+                    class="account-card glass-card ..."
+                    data-price="50"
+                    data-rank="Master"
+                    data-heroes="69-305"
+                  ></div>
+                  <button
+                    class="material-symbols-outlined bg-tertiary/10 text-tertiary p-2 rounded-lg hover:bg-tertiary hover:text-on-tertiary transition-all"
+                    style=""
+                  >
+                    shopping_cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Account Card 2 -->
+            <div
+              class="account-card glass-card ..."
+              data-price="199"
+              data-rank="Master"
+              data-heroes="150"
+            ></div>
+            <div
+              class="glass-card rounded-xl overflow-hidden glow-hover transition-all duration-500 group"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  alt="ROV Account Preview"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  data-alt="mystical female mage character casting ice spells in a dark enchanted forest with glowing cyan and violet particles"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEvwvRgpBfOgZN8q4iPq4cXz0-iA2DagmV-r-aFd1qOVY9P0cdlPxEwFRlqMs2kkl4Xg5v6gaKF_rW1LQxcURZpOXA-c4ST1MdWP8QE8KfcR9qwM3Hv8M3JRAAnpAy3xXJAteDl-6N3VxuTJp_FwsiLHus7WHkxs2kRchETHRz7ofyhyFdLnuAbWHK7uEV0uu9Kls2OLRT7n1xM3b_nHoIyK0K35d3qJvH6jlUZhZNyXiiQaZe3LhNMOUwbO9Mx7t93tzUJOYIht8A"
+                  style=""
+                />
+                <div
+                  class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-slate-950 to-transparent"
+                >
+                  <span class="flex items-center gap-1 text-slate-400" style="">
+                    <span class="material-symbols-outlined text-sm" style=""
+                      >schedule</span
+                    >
+                    <span
+                      class="text-[10px] font-label-bold uppercase tracking-widest"
+                      style=""
+                      >2 Hours ago</span
+                    >
+                  </span>
+                </div>
+              </div>
+              <div class="p-5">
+                <h3
+                  class="font-headline-md text-lg mb-4 text-on-surface group-hover:text-tertiary transition-colors"
+                  style=""
+                >
+                  ID งานคัด Winlate อัตราชนะขั้นต่ำ 68%
+                </h3>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Rank</span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >E. Legend</span
+                    >
+                  </div>
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Win Rate</span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >68.4%</span
+                    >
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >sTART Price</span
+                    >
+                    <span
+                      class="text-xl font-headline-md text-tertiary text-glow"
+                      style=""
+                      >฿199</span
+                    >
+                  </div>
+                  <button
+                    class="material-symbols-outlined bg-tertiary/10 text-tertiary p-2 rounded-lg hover:bg-tertiary hover:text-on-tertiary transition-all"
+                    style=""
+                  >
+                    shopping_cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Account Card 3 -->
+            <div
+              class="account-card glass-card ..."
+              data-price="2450"
+              data-rank="Master"
+              data-heroes="105"
+            ></div>
+            <div
+              class="glass-card rounded-xl overflow-hidden glow-hover transition-all duration-500 group"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  alt="ROV Account Preview"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  data-alt="close-up of a high-tech robotic assassin character with neon red glowing eyes and sleek black metal armor surfaces"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR5stFO2okIdZRTx6QFHtfWv5z3sCM6SyEWjpMA7wcAix1FytngiXOSdoeffVZZ12C17n1i6lQW1kYllvIKP3KtoYFFNMw8GqYHzyHxrXz4nyCy_9TxQBPwqgloTF7BTem2SCUX7Cb3zA73FAwzTlOB_rzqocjq8zHgMF6s05cGUrmeFrUO_dp122jCV3sOAIqYJ-ySzYXrir7tolz8wsGMCR28Xe5GO1_yWMFBYgyEl6ICvoTqlJZtqBiJ8wZvJMTxcPuPLgcCQRR"
+                  style=""
+                />
+                <div
+                  class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-slate-950 to-transparent"
+                >
+                  <span class="flex items-center gap-1 text-slate-400" style="">
+                    <span class="material-symbols-outlined text-sm" style=""
+                      >person_pin</span
+                    >
+                    <span
+                      class="text-[10px] font-label-bold uppercase tracking-widest"
+                      style=""
+                      >ID: #ROV-9921</span
+                    >
+                  </span>
+                </div>
+              </div>
+              <div class="p-5">
+                <h3
+                  class="font-headline-md text-lg mb-4 text-on-surface group-hover:text-tertiary transition-colors"
+                  style=""
+                >
+                  Master Tier Smurf | Full Arcanas | Cheap
+                </h3>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Rank</span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >Master</span
+                    >
+                  </div>
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Arcana Level</span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >Level 90</span
+                    >
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Price</span
+                    >
+                    <span
+                      class="text-xl font-headline-md text-tertiary text-glow"
+                      style=""
+                      >฿2,450</span
+                    >
+                  </div>
+                  <button
+                    class="material-symbols-outlined bg-tertiary/10 text-tertiary p-2 rounded-lg hover:bg-tertiary hover:text-on-tertiary transition-all"
+                    style=""
+                  >
+                    shopping_cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Account Card 4 -->
+            <div
+              class="account-card glass-card ..."
+              data-price="8900"
+              data-rank="Master"
+              data-heroes="105"
+            ></div>
+            <div
+              class="glass-card rounded-xl overflow-hidden glow-hover transition-all duration-500 group"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  alt="ROV Account Preview"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  data-alt="dynamic battle scene with a dragon-themed warrior unleashing a fire breath attack with orange and yellow ember effects"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiJEQZznMsA-9_Y5aC-92h0pCk-fHuDHgMFenfQ1WJhCch51WtEYPyK44fk-shhYZk0i_qc8-R4uldwL-ydsmq4D4r1Dr4cEbtTVns6dmd0m3O9Tcd29c5GBRVWTtRnISHiz9NuGbuFKztZvKsxnLO9J0HAd2mOnLjQ1n4hDvQaGwKmGRAdNiylxhKeKXv2ORhtUnwE8oBor6ARlhRSbkotOeHZflVdlOBoyuyZVX2Pj2s0D7p_vcpv6gn27uoyJXENa3pklyJCV07"
+                  style=""
+                />
+                <div
+                  class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-slate-950 to-transparent"
+                >
+                  <span class="flex items-center gap-1 text-slate-400" style="">
+                    <span class="material-symbols-outlined text-sm" style=""
+                      >star</span
+                    >
+                    <span
+                      class="text-[10px] font-label-bold uppercase tracking-widest"
+                      style=""
+                      >Best Value</span
+                    >
+                  </span>
+                </div>
+              </div>
+              <div class="p-5">
+                <h3
+                  class="font-headline-md text-lg mb-4 text-on-surface group-hover:text-tertiary transition-colors"
+                  style=""
+                >
+                  Conqueror Peak Rank | 95 Heroes | Rare Skins
+                </h3>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Rank</span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >Diamond</span
+                    >
+                  </div>
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Heroes</span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >95 Heroes</span
+                    >
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Price</span
+                    >
+                    <span
+                      class="text-xl font-headline-md text-tertiary text-glow"
+                      style=""
+                      >฿8,900</span
+                    >
+                  </div>
+                  <button
+                    class="material-symbols-outlined bg-tertiary/10 text-tertiary p-2 rounded-lg hover:bg-tertiary hover:text-on-tertiary transition-all"
+                    style=""
+                  >
+                    shopping_cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Account Card 5 -->
+            <div
+              class="account-card glass-card ..."
+              data-price="12,000"
+              data-rank="Platinum"
+              data-skins="150"
+            ></div>
+            <div
+              class="glass-card rounded-xl overflow-hidden glow-hover transition-all duration-500 group"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  alt="ROV Account Preview"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  data-alt="ethereal celestial landscape with a floating hero character surrounded by orbiting planets and glowing stardust trails"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8seEt-p4-R0B2oOjH4Ikjcq7FflCWO-k1fHg8TWUWK8NN3LyajrjtTYVmQovrRL3kK2BfMiW-gUdklVM8oZiDuKOqBGwCFufmtbbxYZV3bP9oQywnxPk4az2i3vZi7TAmZxKSjm6xmOzYIZhPHF2nfWRJGqfpwlVuDO8oclsh8GMCAby8TuNwmo6RJYir-LA1BEmbQcZIpjz5gt3DxqGv9PbW-Oei5NMLGSWZURPtEWjRNtAsOlZqwQJtqfqA66hzrYodM_y6OaCJ"
+                  style=""
+                />
+                <div
+                  class="absolute top-4 left-4 bg-cyan-500 text-slate-950 font-label-bold text-[10px] px-2 py-1 rounded uppercase tracking-widest"
+                  style=""
+                >
+                  New Listed
+                </div>
+              </div>
+              <div class="p-5">
+                <h3
+                  class="font-headline-md text-lg mb-4 text-on-surface group-hover:text-tertiary transition-colors"
+                  style=""
+                >
+                  Special Edition Skins | Collector Account
+                </h3>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Rank</span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >Platinum</span
+                    >
+                  </div>
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Skins</span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >150+ Skins</span
+                    >
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Price</span
+                    >
+                    <span
+                      class="text-xl font-headline-md text-tertiary text-glow"
+                      style=""
+                      >฿12,000</span
+                    >
+                  </div>
+                  <button
+                    class="material-symbols-outlined bg-tertiary/10 text-tertiary p-2 rounded-lg hover:bg-tertiary hover:text-on-tertiary transition-all"
+                    style=""
+                  >
+                    shopping_cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Account Card 6 -->
+            <div
+              class="account-card glass-card ..."
+              data-price="5,800"
+              data-rank="Master"
+              data-heroes="105"
+              data-winrate="72%"
+            ></div>
+            <div
+              class="glass-card rounded-xl overflow-hidden glow-hover transition-all duration-500 group"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  alt="ROV Account Preview"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  data-alt="cyberpunk stylized archer character with holographic bow and arrow standing on a rain-slicked futuristic street"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmDSuHRELIeOTB--surpczp0BEoYq1L1w5SdEiR33sgyRxOBCNcUBuY_FYAE3VFXqkNjbaJLs57DBFXWi9kguaA4XQMJKrW6BTAEhSBMjyGxZ0YyuK3qI3qHcscr8-jGAF0gjVoUvutRVc_mJW2XTCN5TSUvZuLhUpOepjiMGLnSTo7kwsaYDHyyWyhWl6qnCoIl9u9HCQ1yurdKUtgfgE1VjAB37_dlKSWqtMdeVu2eL2vntKj2yJal6fvEk_4QePalMHmDY6bDur"
+                  style=""
+                />
+              </div>
+              <div class="p-5">
+                <h3
+                  class="font-headline-md text-lg mb-4 text-on-surface group-hover:text-tertiary transition-colors"
+                  style=""
+                >
+                  High Winrate ADC Main | Master 25 Stars
+                </h3>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Rank</span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >Master</span
+                    >
+                  </div>
+                  <div class="bg-surface-container-low p-2 rounded">
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Win Rate</span
+                    >
+                    <span
+                      class="text-sm font-headline-md text-on-surface"
+                      style=""
+                      >72%</span
+                    >
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div>
+                    <span
+                      class="block text-[10px] uppercase text-slate-500 font-label-bold"
+                      style=""
+                      >Price</span
+                    >
+                    <span
+                      class="text-xl font-headline-md text-tertiary text-glow"
+                      style=""
+                      >฿5,800</span
+                    >
+                  </div>
+                  <button
+                    class="material-symbols-outlined bg-tertiary/10 text-tertiary p-2 rounded-lg hover:bg-tertiary hover:text-on-tertiary transition-all"
+                    style=""
+                  >
+                    shopping_cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Pagination -->
+          <div class="mt-xl flex justify-center items-center gap-4">
+            <button
+              class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:border-tertiary hover:text-tertiary transition-all"
+              style=""
+            >
+              <span class="material-symbols-outlined" style=""
+                >chevron_left</span
+              >
+            </button>
+            <div class="flex gap-2">
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-lg bg-tertiary text-on-tertiary font-label-bold"
+                style=""
+              >
+                1
+              </button>
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:border-tertiary hover:text-tertiary transition-all font-label-bold"
+                style=""
+              >
+                2
+              </button>
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:border-tertiary hover:text-tertiary transition-all font-label-bold"
+                style=""
+              >
+                3
+              </button>
+              <span
+                class="w-10 h-10 flex items-center justify-center text-slate-500"
+                style=""
+                >...</span
+              >
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:border-tertiary hover:text-tertiary transition-all font-label-bold"
+                style=""
+              >
+                12
+              </button>
+            </div>
+            <button
+              class="w-10 h-10 flex items-center justify-center rounded-lg border border-white/10 hover:border-tertiary hover:text-tertiary transition-all"
+              style=""
+            >
+              <span class="material-symbols-outlined" style=""
+                >chevron_right</span
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-slate-950 w-full border-t border-white/5 pt-16 pb-8">
+      <div
+        class="max-w-[1280px] mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-8 mb-16"
+      >
+        <div>
+          <h2
+            class="text-xl font-black text-slate-200 font-display mb-6"
+            style=""
+          >
+            LOOTLEVEL
+          </h2>
+          <p class="text-slate-500 font-body-md max-w-sm mb-6" style="">
+            The world's leading marketplace for high-end gaming assets. Secure,
+            fast, and professional trading for competitive gamers.
+          </p>
+          <div class="flex gap-4">
+            <a
+              class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-slate-400 hover:text-cyan-400 transition-colors"
+              href="#"
+              style=""
+            >
+              <span class="material-symbols-outlined" style="">public</span>
+            </a>
+            <a
+              class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-slate-400 hover:text-cyan-400 transition-colors"
+              href="#"
+              style=""
+            >
+              <span class="material-symbols-outlined" style="">mail</span>
+            </a>
+            <a
+              class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-slate-400 hover:text-cyan-400 transition-colors"
+              href="#"
+              style=""
+            >
+              <span class="material-symbols-outlined" style="">forum</span>
+            </a>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-8">
+          <div>
+            <h4
+              class="font-label-bold text-xs uppercase tracking-widest text-white mb-6"
+              style=""
+            >
+              Marketplace
+            </h4>
+            <ul class="space-y-4">
+              <li class="" style="">
+                <a
+                  class="font-body-md text-sm text-slate-500 hover:text-cyan-400 transition-colors"
+                  href="#"
+                  style=""
+                  >All Games</a
+                >
+              </li>
+              <li class="" style="">
+                <a
+                  class="font-body-md text-sm text-slate-500 hover:text-cyan-400 transition-colors"
+                  href="#"
+                  style=""
+                  >ROV Accounts</a
+                >
+              </li>
+              <li class="" style="">
+                <a
+                  class="font-body-md text-sm text-slate-500 hover:text-cyan-400 transition-colors"
+                  href="#"
+                  style=""
+                  >Boosting Services</a
+                >
+              </li>
+              <li class="" style="">
+                <a
+                  class="font-body-md text-sm text-slate-500 hover:text-cyan-400 transition-colors"
+                  href="#"
+                  style=""
+                  >Items &amp; Skins</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="font-label-bold text-xs uppercase tracking-widest text-white mb-6"
+              style=""
+            >
+              Support
+            </h4>
+            <ul class="space-y-4">
+              <li class="" style="">
+                <a
+                  class="font-body-md text-sm text-slate-500 hover:text-cyan-400 transition-colors"
+                  href="#"
+                  style=""
+                  >Help Center</a
+                >
+              </li>
+              <li class="" style="">
+                <a
+                  class="font-body-md text-sm text-slate-500 hover:text-cyan-400 transition-colors"
+                  href="#"
+                  style=""
+                  >Safety Tips</a
+                >
+              </li>
+              <li class="" style="">
+                <a
+                  class="font-body-md text-sm text-slate-500 hover:text-cyan-400 transition-colors"
+                  href="#"
+                  style=""
+                  >Contact Us</a
+                >
+              </li>
+              <li class="" style="">
+                <a
+                  class="font-body-md text-sm text-slate-500 hover:text-cyan-400 transition-colors"
+                  href="#"
+                  style=""
+                  >Bug Bounty</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div
+        class="max-w-[1280px] mx-auto px-8 border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+      >
+        <span
+          class="font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest text-slate-500"
+          style=""
+          >© 2024 LOOTLEVEL MARKETPLACE. ALL RIGHTS RESERVED.</span
+        >
+        <div class="flex gap-6">
+          <a
+            class="font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-cyan-400 transition-colors"
+            href="#"
+            style=""
+            >Terms of Service</a
+          >
+          <a
+            class="font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-cyan-400 transition-colors"
+            href="#"
+            style=""
+            >Privacy Policy</a
+          >
+          <a
+            class="font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest text-slate-500 hover:text-cyan-400 transition-colors"
+            href="#"
+            style=""
+            >Refund Policy</a
+          >
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // ... ตัวแปรเดิม (minInput, maxInput, cards, ฯลฯ) ...
+        const heroButtons = document.querySelectorAll(".hero-btn");
+        let selectedHeroCount = 0; // ตัวแปรเก็บค่าฮีโร่ที่เลือก
+
+        // ฟังก์ชันกรองหลัก (ปรับปรุงจากเดิม)
+        function filterAccounts() {
+          const minPrice =
+            parseFloat(document.getElementById("minPrice").value) || 0;
+          const maxPrice =
+            parseFloat(document.getElementById("maxPrice").value) || Infinity;
+
+          const selectedRanks = Array.from(
+            document.querySelectorAll(".rank-checkbox"),
+          )
+            .filter((cb) => cb.checked)
+            .map((cb) => cb.value);
+
+          let visibleCount = 0;
+
+          document.querySelectorAll(".account-card").forEach((card) => {
+            const price = parseFloat(card.getAttribute("data-price"));
+            const rank = card.getAttribute("data-rank");
+            // ต้องเพิ่ม data-heroes="ตัวเลข" ใน class="account-card" ของคุณด้วย
+            const heroes = parseInt(card.getAttribute("data-heroes")) || 0;
+
+            const priceMatch = price >= minPrice && price <= maxPrice;
+            const rankMatch =
+              selectedRanks.length === 0 || selectedRanks.includes(rank);
+            const heroMatch = heroes >= selectedHeroCount; // กรองตามจำนวนฮีโร่
+
+            if (priceMatch && rankMatch && heroMatch) {
+              card.style.display = "block";
+              visibleCount++;
+            } else {
+              card.style.display = "none";
+            }
+          });
+
+          const countDisplay = document.querySelector(
+            ".text-tertiary.font-bold",
+          );
+          if (countDisplay) countDisplay.innerText = visibleCount;
+        }
+
+        // จัดการการคลิกปุ่ม Hero
+        heroButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            // 1. ถ้าปุ่มที่คลิกมีสถานะ Active อยู่แล้ว -> ให้ Reset เป็น "All Heroes"
+            if (btn.classList.contains("border-tertiary")) {
+              selectedHeroCount = 0;
+              btn.classList.remove(
+                "border-tertiary",
+                "bg-tertiary/20",
+                "text-tertiary",
+              );
+            } else {
+              // 2. ถ้าคลิกปุ่มใหม่ -> ลบสถานะ Active จากทุกปุ่มก่อน
+              heroButtons.forEach((b) =>
+                b.classList.remove(
+                  "border-tertiary",
+                  "bg-tertiary/20",
+                  "text-tertiary",
+                ),
+              );
+
+              // 3. เพิ่มสถานะ Active ให้ปุ่มที่ถูกคลิก
+              btn.classList.add(
+                "border-tertiary",
+                "bg-tertiary/20",
+                "text-tertiary",
+              );
+              selectedHeroCount = parseInt(btn.getAttribute("data-heroes"));
+            }
+
+            // 4. สั่งกรองข้อมูลทันที
+            filterAccounts();
+          });
+        });
+
+        // อย่าลืมใส่ Event ให้ช่องราคาด้วย
+        document
+          .getElementById("minPrice")
+          .addEventListener("input", filterAccounts);
+        document
+          .getElementById("maxPrice")
+          .addEventListener("input", filterAccounts);
+      });
+    </script>
+  </body>
+</html>

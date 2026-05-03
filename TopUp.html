@@ -1,0 +1,644 @@
+<!doctype html>
+<html class="dark" lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>GAMELORD - เติมเงิน</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;700&family=Manrope:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .glass-panel {
+        background: rgba(10, 16, 61, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .text-gradient {
+        background: linear-gradient(to right, #2563eb, #00f2ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Custom Button Styles */
+      .glow-button {
+        position: relative;
+        width: 100%;
+        height: 56px;
+        border-radius: 8px;
+        background-color: #0f172a;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 1px solid rgba(0, 242, 255, 0.5);
+        cursor: pointer;
+        font-weight: bold;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .glow-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+      }
+
+      .glow-button .loading-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(
+          -225deg,
+          #00f2ff 0%,
+          #2563eb 50%,
+          #00f2ff 100%
+        );
+        filter: blur(15px);
+        opacity: 0.5;
+        z-index: 0;
+        animation: animate-glow 2s linear infinite;
+      }
+
+      @keyframes animate-glow {
+        0% {
+          transform: scale(1.2) rotate(0deg);
+        }
+        100% {
+          transform: scale(1.2) rotate(360deg);
+        }
+      }
+
+      .glow-button span {
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Custom Scrollbar for better UI */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #020412;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #334155;
+      }
+    </style>
+
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              tertiary: "#00f2ff",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-[#020412] text-[#e0e3e5] min-h-screen flex flex-col font-['Inter']"
+  >
+    <nav
+      class="fixed top-0 w-full z-50 border-b border-white/10 bg-[#020412]/80 backdrop-blur-xl"
+    >
+      <div
+        class="flex justify-between items-center h-20 px-8 max-w-[1280px] mx-auto w-full"
+      >
+        <div
+          class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 cursor-pointer"
+          onclick="window.location.href = 'Homepage.html'"
+        >
+          RANDOM | ID
+        </div>
+        <div class="hidden md:flex items-center gap-8 font-bold text-sm">
+          <a class="text-slate-400 hover:text-white transition-colors" href="#"
+            >Marketplace</a
+          >
+          <a class="text-slate-400 hover:text-white transition-colors" href="#"
+            >Sell Account</a
+          >
+          <a class="text-slate-400 hover:text-white transition-colors" href="#"
+            >Boosting</a
+          >
+          <a class="text-slate-400 hover:text-white transition-colors" href="#"
+            >Support</a
+          >
+        </div>
+        <button
+          class="bg-gradient-to-r from-blue-600 to-cyan-400 px-6 py-2 rounded-lg font-bold text-white hover:opacity-90 active:scale-95 transition-all"
+        >
+          Connect Wallet
+        </button>
+      </div>
+    </nav>
+
+    <main
+      class="flex-grow pt-32 pb-16 px-4 md:px-8 max-w-[1280px] mx-auto w-full"
+    >
+      <header class="mb-10 text-center md:text-left">
+        <h1
+          class="text-4xl md:text-5xl font-black text-white mb-3 uppercase tracking-tight"
+        >
+          เติมเงิน <span class="text-gradient">GAMELORD</span>
+        </h1>
+        <p class="text-slate-400 text-base md:text-lg">
+          ยกระดับบัญชีของคุณด้วยเครดิตพรีเมียม รวดเร็ว ปลอดภัย ตลอด 24 ชั่วโมง
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- ฝั่งซ้าย: เลือกแพ็กเกจ -->
+        <div class="lg:col-span-8 space-y-8">
+          <!-- ยอดคงเหลือ -->
+          <section
+            class="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between relative overflow-hidden gap-4"
+          >
+            <div class="flex items-center gap-4">
+              <div
+                class="bg-slate-800/80 p-4 rounded-xl border border-white/10 text-tertiary"
+              >
+                <span class="material-symbols-outlined text-3xl"
+                  >account_balance_wallet</span
+                >
+              </div>
+              <div>
+                <p
+                  class="text-slate-400 font-bold uppercase text-xs tracking-widest mb-1"
+                >
+                  ยอดคงเหลือปัจจุบัน
+                </p>
+                <p class="text-white text-3xl font-black">
+                  1,250.00
+                  <span class="text-sm text-tertiary font-bold">THB</span>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- เลือกราคา -->
+          <section>
+            <h2
+              class="text-xl font-bold text-white mb-4 flex items-center gap-2"
+            >
+              <span class="material-symbols-outlined text-tertiary"
+                >payments</span
+              >
+              เลือกจำนวนเงิน
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="amount-grid">
+              <button
+                class="amount-card glass-panel p-6 rounded-xl text-center transition-all hover:border-tertiary/50 active:scale-95 border-transparent border-2"
+                data-amount="100"
+              >
+                <p class="text-slate-400 text-xs font-bold mb-1 tracking-wider">
+                  BASIC
+                </p>
+                <p class="text-white text-3xl font-black mb-1">100</p>
+                <p class="text-tertiary text-xs font-bold">฿100.00</p>
+              </button>
+              <button
+                class="amount-card glass-panel p-6 rounded-xl text-center transition-all hover:border-tertiary/50 active:scale-95 border-transparent border-2"
+                data-amount="300"
+              >
+                <p class="text-slate-400 text-xs font-bold mb-1 tracking-wider">
+                  POPULAR
+                </p>
+                <p class="text-white text-3xl font-black mb-1">300</p>
+                <p class="text-tertiary text-xs font-bold">฿300.00</p>
+              </button>
+              <button
+                class="amount-card glass-panel p-6 rounded-xl text-center transition-all hover:border-tertiary/50 active:scale-95 border-transparent border-2"
+                data-amount="500"
+              >
+                <p class="text-slate-400 text-xs font-bold mb-1 tracking-wider">
+                  STANDARD
+                </p>
+                <p class="text-white text-3xl font-black mb-1">500</p>
+                <p class="text-tertiary text-xs font-bold">฿500.00</p>
+              </button>
+              <button
+                class="amount-card glass-panel p-6 rounded-xl text-center transition-all hover:border-tertiary/50 active:scale-95 border-transparent border-2"
+                data-amount="1000"
+              >
+                <p class="text-slate-400 text-xs font-bold mb-1 tracking-wider">
+                  ELITE
+                </p>
+                <p class="text-white text-3xl font-black mb-1">1,000</p>
+                <p class="text-tertiary text-xs font-bold">฿1,000.00</p>
+              </button>
+              <button
+                class="amount-card glass-panel p-6 rounded-xl text-center transition-all hover:border-tertiary/50 active:scale-95 border-transparent border-2"
+                data-amount="5000"
+              >
+                <p class="text-slate-400 text-xs font-bold mb-1 tracking-wider">
+                  SULTAN
+                </p>
+                <p class="text-white text-3xl font-black mb-1">5,000</p>
+                <p class="text-tertiary text-xs font-bold">฿5,000.00</p>
+              </button>
+              <button
+                class="amount-card glass-panel p-6 rounded-xl text-center transition-all hover:border-tertiary/50 active:scale-95 border-transparent border-2 relative overflow-hidden"
+                data-amount="50000"
+              >
+                <div
+                  class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-cyan-400/10"
+                ></div>
+                <p
+                  class="text-cyan-400 text-xs font-bold mb-1 tracking-wider relative z-10"
+                >
+                  GOD PACK
+                </p>
+                <p class="text-white text-3xl font-black mb-1 relative z-10">
+                  50K
+                </p>
+                <p class="text-tertiary text-xs font-bold relative z-10">
+                  ฿50,000.00
+                </p>
+              </button>
+            </div>
+          </section>
+
+          <!-- ระบุจำนวนเงินเอง -->
+          <section
+            class="glass-panel p-6 rounded-xl border border-dashed border-slate-600 hover:border-slate-500 transition-colors"
+          >
+            <label
+              class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3"
+              >หรือระบุจำนวนเงินเอง</label
+            >
+            <div class="relative">
+              <span
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-lg"
+                >฿</span
+              >
+              <input
+                id="custom-amount"
+                class="w-full bg-[#0a0f1c] border border-slate-700 focus:border-tertiary focus:ring-1 focus:ring-tertiary rounded-lg py-4 pl-10 pr-4 text-white text-lg outline-none transition-all"
+                placeholder="กรอกจำนวนเงิน (ขั้นต่ำ 20 บาท)"
+                type="number"
+                min="20"
+              />
+            </div>
+          </section>
+        </div>
+
+        <!-- ฝั่งขวา: สรุปยอดและชำระเงิน -->
+        <aside class="lg:col-span-4 space-y-6">
+          <!-- ช่องทางชำระเงิน -->
+          <section class="glass-panel rounded-xl overflow-hidden">
+            <div class="p-4 bg-white/5 border-b border-white/5">
+              <h2 class="text-white font-bold flex items-center gap-2">
+                <span class="material-symbols-outlined text-tertiary"
+                  >qr_code_scanner</span
+                >
+                ช่องทางชำระเงิน
+              </h2>
+            </div>
+            <div class="p-4 space-y-3" id="payment-methods">
+              <label
+                class="payment-label flex items-center p-4 rounded-lg border border-tertiary bg-tertiary/10 cursor-pointer transition-all"
+              >
+                <input checked name="payment" type="radio" class="hidden" />
+                <div class="w-full flex items-center justify-between">
+                  <span class="font-bold text-white">PromptPay QR</span>
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/PromptPay_logo.png/600px-PromptPay_logo.png"
+                    alt="PromptPay"
+                    class="h-5 object-contain opacity-90"
+                  />
+                </div>
+              </label>
+            </div>
+          </section>
+
+          <!-- สรุปรายการ -->
+          <section class="glass-panel p-6 rounded-xl space-y-4">
+            <h3
+              class="text-xs text-slate-400 font-bold uppercase border-b border-white/5 pb-3"
+            >
+              สรุปรายการเติมเงิน
+            </h3>
+
+            <div id="checkout-view" class="space-y-4 block">
+              <div class="space-y-3 text-sm">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-300">ยอดเติม</span>
+                  <span id="sum-amount" class="text-white font-bold text-lg"
+                    >฿0.00</span
+                  >
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-300">ค่าธรรมเนียม</span>
+                  <span
+                    class="text-tertiary font-bold bg-tertiary/10 px-2 py-0.5 rounded text-xs"
+                    >ฟรี</span
+                  >
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-300">เครดิตที่จะได้รับ</span>
+                  <span id="sum-cp" class="text-blue-400 font-black text-lg"
+                    >0 CP</span
+                  >
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-white/5">
+                <div class="flex justify-between items-end mb-6">
+                  <span class="text-slate-400 font-bold mb-1"
+                    >ยอดสุทธิที่ต้องชำระ</span
+                  >
+                  <span
+                    id="sum-total"
+                    class="text-white text-4xl font-black text-gradient"
+                    >฿0.00</span
+                  >
+                </div>
+                <button id="btn-pay" class="glow-button">
+                  <div class="loading-glow"></div>
+                  <span class="flex items-center gap-2"
+                    >ชำระเงินทันที
+                    <span class="material-symbols-outlined text-sm"
+                      >arrow_forward</span
+                    ></span
+                  >
+                </button>
+              </div>
+            </div>
+
+            <!-- ส่วนแสดง QR Code (ซ่อนไว้ตอนแรก) -->
+            <div
+              id="qr-view"
+              class="hidden flex-col items-center justify-center py-2 space-y-4 animate-fade-in"
+            >
+              <div class="text-center w-full">
+                <p class="text-sm text-slate-400 mb-1">
+                  สแกน QR Code เพื่อชำระเงิน
+                </p>
+                <p
+                  id="qr-amount-display"
+                  class="text-2xl font-black text-white mb-4"
+                >
+                  ฿0.00
+                </p>
+                <div
+                  class="bg-white p-3 rounded-xl inline-block shadow-[0_0_20px_rgba(0,242,255,0.2)]"
+                >
+                  <!-- รูปภาพ QR Code จะมาโชว์ตรงนี้ -->
+                  <img
+                    id="qr-image"
+                    src=""
+                    alt="PromptPay QR"
+                    class="w-48 h-48 object-contain"
+                  />
+                </div>
+              </div>
+              <div class="w-full space-y-2 pt-2">
+                <button
+                  id="btn-cancel"
+                  class="w-full py-3 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white transition-colors font-bold text-sm"
+                >
+                  ยกเลิก / เปลี่ยนจำนวนเงิน
+                </button>
+              </div>
+            </div>
+
+            <div class="w-full space-y-3 mt-4">
+              <label
+                class="block w-full py-3 rounded-lg border border-dashed border-tertiary text-center text-tertiary hover:bg-tertiary/10 cursor-pointer transition-colors font-bold text-sm"
+              >
+                <span class="material-symbols-outlined align-middle mr-1"
+                  >upload_file</span
+                >
+                อัปโหลดรูปสลิปโอนเงิน
+                <!-- Input file ที่ซ่อนไว้ -->
+                <input
+                  type="file"
+                  id="slip-upload"
+                  accept="image/jpeg, image/png"
+                  class="hidden"
+                />
+              </label>
+
+              <!-- แสดงชื่อไฟล์เมื่อเลือกแล้ว -->
+              <p
+                id="file-name-display"
+                class="text-xs text-center text-slate-400 hidden"
+              >
+                เลือกไฟล์: <span id="file-name" class="text-white"></span>
+              </p>
+
+              <!-- ปุ่มกดยืนยัน (ซ่อนไว้จนกว่าจะอัปโหลดรูป) -->
+              <button id="btn-confirm-slip" class="glow-button hidden">
+                <span class="flex items-center gap-2"
+                  >ยืนยันการโอนเงิน
+                  <span class="material-symbols-outlined text-sm"
+                    >check_circle</span
+                  ></span
+                >
+              </button>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <style>
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // กำหนดเบอร์โทรศัพท์ หรือ เลขบัตรประชาชน PromptPay ของคุณที่นี่
+        const PROMPTPAY_ID = "0812345678"; // เปลี่ยนเป็นเบอร์ของคุณ
+
+        const amountCards = document.querySelectorAll(".amount-card");
+        const customInput = document.getElementById("custom-amount");
+
+        // UI Elements
+        const sumAmount = document.getElementById("sum-amount");
+        const sumCP = document.getElementById("sum-cp");
+        const sumTotal = document.getElementById("sum-total");
+
+        // Payment Elements
+        const btnPay = document.getElementById("btn-pay");
+        const checkoutView = document.getElementById("checkout-view");
+        const qrView = document.getElementById("qr-view");
+        const qrImage = document.getElementById("qr-image");
+        const qrAmountDisplay = document.getElementById("qr-amount-display");
+        const btnCancel = document.getElementById("btn-cancel");
+
+        const slipUpload = document.getElementById("slip-upload");
+        const fileNameDisplay = document.getElementById("file-name-display");
+        const fileNameSpan = document.getElementById("file-name");
+        const btnConfirmSlip = document.getElementById("btn-confirm-slip");
+
+        let selectedFile = null;
+
+        let currentSelectedAmount = 0;
+
+        // รีเซ็ตหน้าชำระเงินกลับมาหน้าสรุปยอด
+        function resetToCheckout() {
+          qrView.classList.add("hidden");
+          checkoutView.classList.remove("hidden");
+        }
+
+        // ฟังก์ชันอัปเดต UI สรุปรายการ
+        function updateSummary(amount) {
+          resetToCheckout(); // ถ้าเปลี่ยนราคา ให้ปิด QR
+
+          currentSelectedAmount = parseFloat(amount) || 0;
+          const formattedPrice = `฿${currentSelectedAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          const formattedCP = `${Math.floor(currentSelectedAmount).toLocaleString()} CP`;
+
+          if (sumAmount) sumAmount.innerText = formattedPrice;
+          if (sumTotal) sumTotal.innerText = formattedPrice;
+          if (sumCP) sumCP.innerText = formattedCP;
+        }
+
+        // 1. จัดการเมื่อคลิก Card
+        amountCards.forEach((card) => {
+          card.addEventListener("click", () => {
+            customInput.value = ""; // ล้างช่อง input
+            amountCards.forEach((c) => {
+              c.classList.remove("border-tertiary", "bg-tertiary/10");
+              c.classList.add("border-transparent");
+            });
+            card.classList.add("border-tertiary", "bg-tertiary/10");
+            card.classList.remove("border-transparent");
+
+            updateSummary(card.getAttribute("data-amount"));
+          });
+        });
+
+        // 2. จัดการเมื่อพิมพ์เงินเอง
+        customInput.addEventListener("input", (e) => {
+          amountCards.forEach((c) => {
+            c.classList.remove("border-tertiary", "bg-tertiary/10");
+            c.classList.add("border-transparent");
+          });
+          updateSummary(e.target.value);
+        });
+
+        // 3. กดปุ่ม "ชำระเงินทันที" สร้าง QR Code
+        btnPay.addEventListener("click", () => {
+          if (currentSelectedAmount < 20) {
+            alert("กรุณาระบุจำนวนเงินขั้นต่ำ 20 บาท");
+            customInput.focus();
+            return;
+          }
+
+          // ซ่อนหน้า Checkout โชว์หน้า QR
+          checkoutView.classList.add("hidden");
+          qrView.classList.remove("hidden");
+          qrView.classList.add("flex");
+
+          // อัปเดตราคาบนหัว QR
+          qrAmountDisplay.innerText = `฿${currentSelectedAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+
+          // ดึง API สร้าง PromptPay QR Code ฟรีจาก promptpay.io
+          qrImage.src = `https://promptpay.io/${PROMPTPAY_ID}/${currentSelectedAmount}.png`;
+        });
+
+        // 4. กดปุ่ม "ยกเลิก"
+        btnCancel.addEventListener("click", () => {
+          resetToCheckout();
+        });
+
+        btnConfirmSlip.addEventListener("click", async () => {
+          if (!selectedFile) return alert("กรุณาอัปโหลดสลิปโอนเงินก่อนครับ");
+
+          const originalContent = btnConfirmSlip.innerHTML;
+          btnConfirmSlip.innerHTML = "<span>กำลังตรวจสอบสลิป...</span>";
+          btnConfirmSlip.disabled = true;
+
+          const formData = new FormData();
+          formData.append("slipImage", selectedFile);
+
+          try {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+              alert("กรุณาเข้าสู่ระบบก่อนทำรายการ");
+              return;
+            }
+
+            const response = await fetch(
+              "http://localhost:4000/api/wallet/deposit-slip",
+              {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+                body: formData,
+              },
+            );
+
+            const result = await response.json();
+
+            if (response.ok) {
+              alert(
+                "เติมเงินสำเร็จ! ยอดเงินใหม่ของคุณคือ: ฿" +
+                  result.data.newBalance,
+              );
+              window.location.reload();
+            } else {
+              alert("ข้อผิดพลาด: " + result.message);
+              btnConfirmSlip.innerHTML = originalContent; // คืนค่าปุ่ม
+              btnConfirmSlip.disabled = false;
+            }
+          } catch (error) {
+            console.error(error);
+            alert("ไม่สามารถติดต่อเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง");
+            btnConfirmSlip.innerHTML = originalContent;
+            btnConfirmSlip.disabled = false;
+          }
+        });
+
+        btnCancel.addEventListener("click", () => {
+          resetToCheckout();
+
+          slipUploadInput.value = "";
+          selectedFile = null;
+          fileNameDisplay.classList.add("hidden");
+          btnConfirmSlip.classList.add("hidden");
+        });
+      });
+    </script>
+  </body>
+</html>

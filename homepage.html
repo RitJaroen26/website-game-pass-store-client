@@ -1,0 +1,933 @@
+<!doctype html>
+
+<html class="dark" lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Inter:wght@400;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .glass-card {
+        background: rgba(10, 16, 61, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .glow-hover:hover {
+        box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+        border-color: rgba(0, 242, 255, 0.5);
+      }
+      .gradient-text {
+        background: linear-gradient(90deg, #4a8eff, #00dbe7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .scanning-animation::after {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(0, 242, 255, 0.1),
+          transparent
+        );
+        animation: scan 3s infinite linear;
+      }
+      @keyframes scan {
+        0% {
+          top: -100%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#adc7ff",
+              "on-tertiary": "#00363a",
+              "surface-tint": "#adc7ff",
+              "inverse-surface": "#e0e3e5",
+              "on-tertiary-fixed": "#002022",
+              "surface-container-lowest": "#0b0f10",
+              "on-secondary": "#282d53",
+              "on-background": "#e0e3e5",
+              "surface-variant": "#323537",
+              "primary-container": "#4a8eff",
+              "on-secondary-container": "#b1b5e3",
+              "secondary-container": "#41466e",
+              "surface-dim": "#101415",
+              secondary: "#bfc3f2",
+              "tertiary-container": "#00a0a9",
+              "inverse-primary": "#005bc0",
+              "on-primary-container": "#00285b",
+              "tertiary-fixed": "#74f5ff",
+              "on-secondary-fixed-variant": "#3f446b",
+              "on-primary-fixed": "#001a41",
+              "on-error": "#690005",
+              "inverse-on-surface": "#2d3133",
+              "secondary-fixed-dim": "#bfc3f2",
+              surface: "#101415",
+              "tertiary-fixed-dim": "#00dbe7",
+              "on-tertiary-fixed-variant": "#004f54",
+              "surface-container-highest": "#323537",
+              "on-surface": "#e0e3e5",
+              "secondary-fixed": "#dfe0ff",
+              "surface-bright": "#363a3b",
+              "on-error-container": "#ffdad6",
+              "surface-container-low": "#191c1e",
+              "on-surface-variant": "#c1c6d7",
+              tertiary: "#00dbe7",
+              "on-primary-fixed-variant": "#004493",
+              "primary-fixed": "#d8e2ff",
+              "surface-container-high": "#272a2c",
+              "surface-container": "#1d2022",
+              "on-tertiary-container": "#002f32",
+              outline: "#8b90a0",
+              "on-secondary-fixed": "#13183d",
+              error: "#ffb4ab",
+              "outline-variant": "#414754",
+              "error-container": "#93000a",
+              primary: "#adc7ff",
+              background: "#101415",
+              "on-primary": "#002e68",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              sm: "16px",
+              "container-max": "1280px",
+              lg: "40px",
+              base: "4px",
+              gutter: "20px",
+              md: "24px",
+              xs: "8px",
+              xl: "64px",
+            },
+            fontFamily: {
+              "body-lg": ["Manrope"],
+              "label-bold": ["Inter"],
+              "headline-lg": ["Space Grotesk"],
+              "headline-md": ["Space Grotesk"],
+              "body-md": ["Manrope"],
+              display: ["Space Grotesk"],
+              headline: ["Space Grotesk"],
+              body: ["Manrope"],
+              label: ["Inter"],
+            },
+            fontSize: {
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "label-bold": ["14px", { lineHeight: "1.2", fontWeight: "700" }],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              display: [
+                "48px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-background text-on-background font-body-md overflow-x-hidden">
+    <!-- TopNavBar -->
+    <header
+      class="fixed top-0 w-full z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl shadow-[0_0_20px_rgba(0,242,255,0.1)]"
+    >
+      <div
+        class="flex justify-between items-center h-20 px-8 max-w-[1280px] mx-auto w-full"
+      >
+        <div class="flex items-center gap-xs">
+          <span
+            class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 font-headline-lg"
+            style=""
+            onclick="window.location.href = 'Homepage.html'"
+            >GAMELORD</span
+          >
+        </div>
+        <nav
+          class="hidden md:flex items-center space-x-lg font-['Space_Grotesk'] text-sm font-bold tracking-tight"
+        >
+          <a
+            class="text-slate-400 hover:text-white transition-colors"
+            href="#"
+            style=""
+            onclick="window.location.href = 'Homepage.html'"
+            >Marketplace</a
+          >
+          <a
+            class="text-slate-400 hover:text-white transition-colors"
+            href="#"
+            style=""
+            onclick="window.location.href = 'RovAc.html'"
+            >Sell Account
+          </a>
+          <a
+            class="text-slate-400 hover:text-white transition-colors"
+            href="#"
+            style=""
+            >Boosting
+          </a>
+          <a
+            class="text-slate-400 hover:text-white transition-colors"
+            href="#"
+            style=""
+            >Support</a
+          >
+        </nav>
+        <div class="flex items-center gap-md">
+          <div class="flex items-center gap-sm">
+            <button
+              class="text-slate-400 hover:text-cyan-400 transition-colors"
+              style=""
+            >
+              <span class="material-symbols-outlined" style=""
+                >notifications</span
+              >
+            </button>
+            <button
+              class="text-slate-400 hover:text-cyan-400 transition-colors"
+              style=""
+            >
+              <span class="material-symbols-outlined" style="">person</span>
+            </button>
+          </div>
+          <!-- <button
+            class="bg-gradient-to-r from-blue-600 to-cyan-400 px-md py-xs rounded text-white font-label-bold hover:shadow-[0_0_15px_rgba(0,242,255,0.3)] transition-all duration-300 active:scale-95"
+            onclick="window.location.href = 'login.html'"
+          >
+            Login
+          </button> -->
+          <div id="auth-section" class="relative z-50">
+            <!-- ปุ่มสำหรับ "ก่อน Login" -->
+            <button
+              id="btn-nav-login"
+              class="bg-gradient-to-r from-blue-600 to-cyan-400 px-6 py-2 rounded-lg font-bold text-white hover:opacity-90 active:scale-95 transition-all"
+              onclick="window.location.href = 'Login.html'"
+            >
+              เข้าสู่ระบบ
+            </button>
+
+            <!-- ส่วนโปรไฟล์สำหรับ "หลัง Login" (ซ่อนไว้ก่อนโดยใส่คลาส hidden) -->
+            <!-- ใช้คลาส group ของ Tailwind เพื่อทำ Dropdown แบบง่ายๆ -->
+            <div id="nav-profile" class="hidden relative group cursor-pointer">
+              <!-- รูปโปรไฟล์และชื่อ -->
+              <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                  <!-- ส่วนแสดงชื่อผู้ใช้ -->
+                  <p id="nav-username" class="text-white text-sm font-bold">
+                    Player
+                  </p>
+                  <p class="text-tertiary text-xs">Member</p>
+                </div>
+                <!-- รูป Avatar พื้นฐาน -->
+                <div
+                  class="w-10 h-10 rounded-full bg-[#0a0f1c] border-2 border-tertiary flex items-center justify-center overflow-hidden hover:shadow-[0_0_15px_rgba(0,242,255,0.4)] transition-all"
+                >
+                  <span class="material-symbols-outlined text-tertiary"
+                    >sports_esports</span
+                  >
+                </div>
+              </div>
+
+              <!-- เมนู Dropdown ย่อย (จะแสดงตอนเอาเมาส์ชี้) -->
+              <div
+                class="absolute right-0 top-full mt-2 w-56 bg-[#0a0f1c]/95 backdrop-blur-xl border border-slate-700 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden"
+              >
+                <div class="p-4 border-b border-slate-700/50 sm:hidden block">
+                  <!-- โชว์ชื่อในมือถือด้วย -->
+                  <p
+                    id="nav-username-mobile"
+                    class="text-white text-sm font-bold"
+                  >
+                    Player
+                  </p>
+                </div>
+
+                <a
+                  href="profile.html"
+                  class="flex items-center gap-3 px-4 py-3 text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition-colors"
+                >
+                  <span class="material-symbols-outlined text-[20px]"
+                    >account_circle</span
+                  >
+                  โปรไฟล์ของฉัน
+                </a>
+
+                <a
+                  href="TopUp.html"
+                  class="flex items-center gap-3 px-4 py-3 text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition-colors"
+                >
+                  <span class="material-symbols-outlined text-[20px]"
+                    >account_balance_wallet</span
+                  >
+                  เติมเงิน
+                </a>
+
+                <div class="border-t border-slate-700/50"></div>
+
+                <button
+                  id="btn-logout"
+                  class="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-slate-800/50 hover:text-red-300 transition-colors text-left"
+                >
+                  <span class="material-symbols-outlined text-[20px]"
+                    >logout</span
+                  >
+                  ออกจากระบบ
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="mt-20">
+      <!-- Hero Slider Section -->
+      <section
+        class="relative w-full h-[600px] overflow-hidden flex items-center"
+      >
+        <div class="absolute inset-0 z-0">
+          <img
+            alt="Gaming Hero"
+            class="w-full h-full object-cover opacity-40"
+            data-alt="cinematic widescreen shot of a futuristic esports arena with neon glowing blue and purple lights and professional gaming equipment"
+            src="https://img.4gamers.com.tw/ckfinder-th/image2/auto/2023-08/ROV_NEWSKIN_VALHEIN-230820-143148.jpeg?versionId=K1HsqvALnpreYLFB4aeLVCAfsOnW6pvI"
+            style=""
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"
+          ></div>
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent"
+          ></div>
+        </div>
+        <div class="relative z-10 max-w-[1280px] mx-auto px-8 w-full">
+          <div class="max-w-2xl">
+            <span
+              class="inline-block py-1 px-3 bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 text-xs font-bold rounded mb-sm tracking-widest uppercase"
+              style=""
+              >Special Deals / โปรโมชั่นสุดพิเศษ</span
+            >
+            <h1 class="text-display font-display mb-sm leading-tight" style="">
+              LEVEL UP YOUR <br /><span class="gradient-text" style=""
+                >GAMING LEGACY</span
+              >
+            </h1>
+            <p
+              class="text-body-lg text-on-surface-variant mb-lg font-body-lg"
+              style=""
+            >
+              ตลาดกลางซื้อขายไอดีเกมที่ปลอดภัยที่สุด ROV, Free Fire และอีกมากมาย
+              พร้อมการรับประกันไอดีแท้ 100%
+            </p>
+            <div class="flex gap-md">
+              <button
+                class="h-20 md:h-full bg-gradient-to-r from-blue-600 to-cyan-400 px-lg py-md rounded-lg text-white font-label-bold hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] transition-all flex items-center gap-xs"
+                style=""
+                onclick="window.location.href = 'RovAc.html'"
+              >
+                สำรวจตลาด
+                <span
+                  class="material-symbols-outlined text-sm md:text-md"
+                  style=""
+                  >arrow_forward</span
+                >
+              </button>
+              <button
+                class="h-20 md:h-full text-[12px] md:text-[16px] text-center overflow-hidden border border-white/20 bg-white/5 backdrop-blur-md px-3 py-2 md:py-md rounded-lg text-white font-label-bold hover:bg-white/10 transition-all"
+                style=""
+              >
+                กฏกติกาการซื้อและเงื่อนไขเข้าประกันหลังการขาย!
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Service Guarantee Section -->
+      <section class="py-xl bg-surface-container-lowest">
+        <div class="max-w-[1280px] mx-auto px-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+            <div
+              class="glass-card p-lg rounded-xl flex items-start gap-md glow-hover transition-all"
+            >
+              <div class="p-sm bg-cyan-400/20 rounded-lg text-cyan-400">
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >verified_user</span
+                >
+              </div>
+              <div>
+                <h3 class="text-headline-md font-headline-md mb-xs" style="">
+                  ไอดีแท้ 100%
+                </h3>
+                <p class="text-on-surface-variant text-sm" style="">
+                  ตรวจสอบทุกไอดีอย่างละเอียด มั่นใจได้ว่าข้อมูลถูกต้องและปลอดภัย
+                </p>
+              </div>
+            </div>
+            <div
+              class="glass-card p-lg rounded-xl flex items-start gap-md glow-hover transition-all"
+            >
+              <div
+                class="p-sm bg-primary-container/20 rounded-lg text-primary-container"
+              >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >shield_with_heart</span
+                >
+              </div>
+              <div>
+                <h3 class="text-headline-md font-headline-md mb-xs" style="">
+                  ประกันหลังการขาย
+                </h3>
+                <p class="text-on-surface-variant text-sm" style="">
+                  คืนเงินทันทีหากพบปัญหาในการโอนย้าย หรือข้อมูลไม่ตรงตามจริง
+                </p>
+              </div>
+            </div>
+            <div
+              class="glass-card p-lg rounded-xl flex items-start gap-md glow-hover transition-all"
+            >
+              <div
+                class="p-sm bg-tertiary-container/20 rounded-lg text-tertiary"
+              >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >electric_bolt</span
+                >
+              </div>
+              <div>
+                <h3 class="text-headline-md font-headline-md mb-xs" style="">
+                  โอนย้ายรวดเร็ว
+                </h3>
+                <p class="text-on-surface-variant text-sm" style="">
+                  ระบบอัตโนมัติช่วยให้การรับไอดีทำได้ภายในเวลาไม่กี่นาที
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Featured Listings -->
+      <section class="py-xl">
+        <div class="max-w-[1280px] mx-auto px-8">
+          <div class="flex justify-between items-end mb-lg">
+            <div>
+              <h2 class="text-headline-lg font-headline-lg mb-xs" style="">
+                HOT DEALS / ไอดีแนะนำ
+              </h2>
+              <div class="h-1 w-24 bg-cyan-400 rounded-full"></div>
+            </div>
+            <a
+              class="text-cyan-400 font-label-bold flex items-center gap-xs hover:underline"
+              href="#"
+              style=""
+              >ดูทั้งหมด
+              <span class="material-symbols-outlined" style=""
+                >chevron_right</span
+              ></a
+            >
+          </div>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter"
+          >
+            <!-- Game Card 1 -->
+            <div
+              class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 relative"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  alt="ROV Account"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  data-alt="dynamic close-up of a heroic fantasy warrior with glowing blue armor and magical sword in an epic battle pose"
+                  src="https://rechargeland.com/article/wp-content/uploads/2025/07/rov-skin-2025-tier.jpg"
+                  style=""
+                />
+                <div
+                  class="absolute top-2 right-2 bg-slate-900/80 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-cyan-400 border border-cyan-400/30 uppercase"
+                  style=""
+                >
+                  FEATURED
+                </div>
+                <div
+                  class="absolute bottom-0 left-0 w-full p-sm bg-gradient-to-t from-slate-950 to-transparent"
+                >
+                  <span
+                    class="text-xs font-bold text-white px-2 py-1 bg-blue-600 rounded"
+                    style=""
+                    >ROV</span
+                  >
+                </div>
+              </div>
+              <div class="p-md scanning-animation overflow-hidden">
+                <div class="flex justify-between items-center mb-sm">
+                  <span
+                    class="text-sm font-label-bold text-on-surface-variant"
+                    style=""
+                    >Lv. 30 | Conqueror</span
+                  >
+                  <span
+                    class="text-tertiary text-lg font-black tracking-tighter"
+                    style=""
+                    >฿ 4,500</span
+                  >
+                </div>
+                <h4 class="text-body-md font-bold mb-md truncate" style="">
+                  Full Skin Legend Collection
+                </h4>
+                <div class="grid grid-cols-2 gap-xs mb-md">
+                  <div
+                    class="bg-white/5 p-2 rounded flex flex-col items-center"
+                  >
+                    <span
+                      class="text-[10px] text-slate-500 uppercase tracking-tighter"
+                      style=""
+                      >Heroes</span
+                    >
+                    <span class="text-sm font-bold" style="">102</span>
+                  </div>
+                  <div
+                    class="bg-white/5 p-2 rounded flex flex-col items-center"
+                  >
+                    <span
+                      class="text-[10px] text-slate-500 uppercase tracking-tighter"
+                      style=""
+                      >Skins</span
+                    >
+                    <span class="text-sm font-bold" style="">245</span>
+                  </div>
+                </div>
+                <button
+                  class="w-full py-2 bg-white/5 border border-white/10 rounded-lg text-sm font-bold hover:bg-cyan-400 hover:text-slate-950 transition-colors"
+                  style=""
+                >
+                  ดูรายละเอียด
+                </button>
+              </div>
+            </div>
+            <!-- Game Card 2 -->
+            <div
+              class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 relative"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  alt="Free Fire Account"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  data-alt="intense urban battlefield scene with stylized sci-fi soldiers in neon orange and black suits running through sparks"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoNz4uMxamSAcjzSTJ0ANS1gT_WgIoJ64euw&amp;s"
+                  style=""
+                />
+                <div
+                  class="absolute bottom-0 left-0 w-full p-sm bg-gradient-to-t from-slate-950 to-transparent"
+                >
+                  <span
+                    class="text-xs font-bold text-white px-2 py-1 bg-orange-600 rounded"
+                    style=""
+                    >Free Fire</span
+                  >
+                </div>
+              </div>
+              <div class="p-md">
+                <div class="flex justify-between items-center mb-sm">
+                  <span
+                    class="text-sm font-label-bold text-on-surface-variant"
+                    style=""
+                    >Lv. 30 | Conqueror</span
+                  >
+                  <span
+                    class="text-tertiary text-lg font-black tracking-tighter"
+                    style=""
+                    >฿ 12,900</span
+                  >
+                </div>
+                <h4 class="text-body-md font-bold mb-md truncate" style="">
+                  Dimentions Event Bundle + EVO Guns
+                </h4>
+                <div class="grid grid-cols-2 gap-xs mb-md">
+                  <div
+                    class="bg-white/5 p-2 rounded flex flex-col items-center"
+                  >
+                    <span
+                      class="text-[10px] text-slate-500 uppercase tracking-tighter"
+                      style=""
+                      >HEROES</span
+                    >
+                    <span class="text-sm font-bold" style="">MAX</span>
+                  </div>
+                  <div
+                    class="bg-white/5 p-2 rounded flex flex-col items-center"
+                  >
+                    <span
+                      class="text-[10px] text-slate-500 uppercase tracking-tighter"
+                      style=""
+                      >SKIN</span
+                    >
+                    <span class="text-sm font-bold" style="">343</span>
+                  </div>
+                </div>
+                <button
+                  class="w-full py-2 bg-white/5 border border-white/10 rounded-lg text-sm font-bold hover:bg-cyan-400 hover:text-slate-950 transition-colors"
+                  style=""
+                >
+                  ดูรายละเอียด
+                </button>
+              </div>
+            </div>
+            <!-- Game Card 3 -->
+            <div
+              class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 relative"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  alt="Valorant Account"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  data-alt="abstract artistic representation of a tactical shooter character with glowing energy blades and sleek modern tactical gear"
+                  src="https://www.techoffside.com/wp-content/uploads/2022/05/RoV-X-Demon-Slayer_-Kimetsu-no-Yaiba.jpg"
+                  style=""
+                />
+                <div
+                  class="absolute bottom-0 left-0 w-full p-sm bg-gradient-to-t from-slate-950 to-transparent"
+                >
+                  <span
+                    class="text-xs font-bold text-white px-2 py-1 bg-red-600 rounded"
+                    style=""
+                    >Valorant</span
+                  >
+                </div>
+              </div>
+              <div class="p-md">
+                <div class="flex justify-between items-center mb-sm">
+                  <span
+                    class="text-sm font-label-bold text-on-surface-variant"
+                    style=""
+                    >Rank: Radiant</span
+                  >
+                  <span
+                    class="text-tertiary text-lg font-black tracking-tighter"
+                    style=""
+                    >฿ 7,200</span
+                  >
+                </div>
+                <h4 class="text-body-md font-bold mb-md truncate" style="">
+                  Kuronami &amp; VCT Collection
+                </h4>
+                <div class="grid grid-cols-2 gap-xs mb-md">
+                  <div
+                    class="bg-white/5 p-2 rounded flex flex-col items-center"
+                  >
+                    <span
+                      class="text-[10px] text-slate-500 uppercase tracking-tighter"
+                      style=""
+                      >Skins</span
+                    >
+                    <span class="text-sm font-bold" style="">32 Premium</span>
+                  </div>
+                  <div
+                    class="bg-white/5 p-2 rounded flex flex-col items-center"
+                  >
+                    <span
+                      class="text-[10px] text-slate-500 uppercase tracking-tighter"
+                      style=""
+                      >Knives</span
+                    >
+                    <span class="text-sm font-bold" style="">5 Rare</span>
+                  </div>
+                </div>
+                <button
+                  class="w-full py-2 bg-white/5 border border-white/10 rounded-lg text-sm font-bold hover:bg-cyan-400 hover:text-slate-950 transition-colors"
+                  style=""
+                >
+                  ดูรายละเอียด
+                </button>
+              </div>
+            </div>
+            <!-- Game Card 4 -->
+            <div
+              class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 relative"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img
+                  alt="PUBG Account"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  data-alt="hyper-realistic image of a tactical drop zone with heavy transport plane and futuristic cargo containers with glowing neon markers"
+                  src="https://thisisgamethailand.com/wp-content/uploads/2025/11/RoV_main.jpg"
+                  style=""
+                />
+                <div
+                  class="absolute bottom-0 left-0 w-full p-sm bg-gradient-to-t from-slate-950 to-transparent"
+                >
+                  <span
+                    class="text-xs font-bold text-white px-2 py-1 bg-yellow-600 rounded"
+                    style=""
+                    >PUBG Mobile</span
+                  >
+                </div>
+              </div>
+              <div class="p-md">
+                <div class="flex justify-between items-center mb-sm">
+                  <span
+                    class="text-sm font-label-bold text-on-surface-variant"
+                    style=""
+                    >Lv. 80 | Conqueror</span
+                  >
+                  <span
+                    class="text-tertiary text-lg font-black tracking-tighter"
+                    style=""
+                    >฿ 25,000</span
+                  >
+                </div>
+                <h4 class="text-body-md font-bold mb-md truncate" style="">
+                  Pharaoh X-Suit Max Level
+                </h4>
+                <div class="grid grid-cols-2 gap-xs mb-md">
+                  <div
+                    class="bg-white/5 p-2 rounded flex flex-col items-center"
+                  >
+                    <span
+                      class="text-[10px] text-slate-500 uppercase tracking-tighter"
+                      style=""
+                      >X-Suits</span
+                    >
+                    <span class="text-sm font-bold" style="">2 Max</span>
+                  </div>
+                  <div
+                    class="bg-white/5 p-2 rounded flex flex-col items-center"
+                  >
+                    <span
+                      class="text-[10px] text-slate-500 uppercase tracking-tighter"
+                      style=""
+                      >Vehicles</span
+                    >
+                    <span class="text-sm font-bold" style="">Lamborghini</span>
+                  </div>
+                </div>
+                <button
+                  class="w-full py-2 bg-white/5 border border-white/10 rounded-lg text-sm font-bold hover:bg-cyan-400 hover:text-slate-950 transition-colors"
+                  style=""
+                >
+                  ดูรายละเอียด
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Stats Section -->
+      <section class="py-xl bg-slate-950">
+        <div class="max-w-[1280px] mx-auto px-8">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-lg text-center">
+            <div>
+              <p class="text-display font-display text-cyan-400" style="">
+                50K+
+              </p>
+              <p class="text-slate-400 font-label-bold" style="">
+                ไอดีที่ขายแล้ว
+              </p>
+            </div>
+            <div>
+              <p class="text-display font-display text-cyan-400" style="">
+                120K
+              </p>
+              <p class="text-slate-400 font-label-bold" style="">
+                ผู้ใช้งานทั้งหมด
+              </p>
+            </div>
+            <div>
+              <p class="text-display font-display text-cyan-400" style="">
+                24/7
+              </p>
+              <p class="text-slate-400 font-label-bold" style="">
+                ซัพพอร์ตดูแล
+              </p>
+            </div>
+            <div>
+              <p class="text-display font-display text-cyan-400" style="">
+                99.9%
+              </p>
+              <p class="text-slate-400 font-label-bold" style="">ความพึงพอใจ</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer class="w-full border-t border-white/5 pt-16 pb-8 bg-slate-950">
+      <div
+        class="max-w-[1280px] mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-8"
+      >
+        <div class="flex flex-col gap-sm">
+          <span
+            class="text-xl font-black text-slate-200 font-headline-lg uppercase"
+            style=""
+            >LOOTLEVEL MARKETPLACE</span
+          >
+          <p class="text-slate-500 font-body-md max-w-sm" style="">
+            จุดเริ่มต้นของการเป็นผู้เล่นระดับตำนาน
+            ค้นหาไอดีคุณภาพเยี่ยมในราคามิตรภาพ ปลอดภัย รวดเร็ว เชื่อใจได้
+          </p>
+          <div class="flex gap-md mt-sm">
+            <span
+              class="material-symbols-outlined text-slate-500 hover:text-cyan-400 cursor-pointer"
+              style=""
+              >social_leaderboard</span
+            >
+            <span
+              class="material-symbols-outlined text-slate-500 hover:text-cyan-400 cursor-pointer"
+              style=""
+              >chat</span
+            >
+            <span
+              class="material-symbols-outlined text-slate-500 hover:text-cyan-400 cursor-pointer"
+              style=""
+              >alternate_email</span
+            >
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-8">
+          <div class="flex flex-col gap-xs">
+            <h5 class="text-cyan-400 font-label-bold mb-sm" style="">
+              ศูนย์ช่วยเหลือ
+            </h5>
+            <a
+              class="text-slate-500 hover:text-cyan-400 transition-colors uppercase text-[10px] tracking-widest font-medium"
+              href="#"
+              style=""
+              >Terms of Service</a
+            >
+            <a
+              class="text-slate-500 hover:text-cyan-400 transition-colors uppercase text-[10px] tracking-widest font-medium"
+              href="#"
+              style=""
+              >Privacy Policy</a
+            >
+            <a
+              class="text-slate-500 hover:text-cyan-400 transition-colors uppercase text-[10px] tracking-widest font-medium"
+              href="#"
+              style=""
+              >Refund Policy</a
+            >
+          </div>
+          <div class="flex flex-col gap-xs">
+            <h5 class="text-cyan-400 font-label-bold mb-sm" style="">
+              ลิงก์อื่นๆ
+            </h5>
+            <a
+              class="text-slate-500 hover:text-cyan-400 transition-colors uppercase text-[10px] tracking-widest font-medium"
+              href="#"
+              style=""
+              >Trust Center</a
+            >
+            <a
+              class="text-slate-500 hover:text-cyan-400 transition-colors uppercase text-[10px] tracking-widest font-medium"
+              href="#"
+              style=""
+              >FAQ</a
+            >
+          </div>
+        </div>
+      </div>
+      <div
+        class="max-w-[1280px] mx-auto px-8 mt-12 pt-8 border-t border-white/5"
+      >
+        <p
+          class="text-slate-500 font-['Space_Grotesk'] text-[10px] font-medium uppercase tracking-widest text-center md:text-left"
+          style=""
+        >
+          © 2024 LOOTLEVEL MARKETPLACE. ALL RIGHTS RESERVED.
+        </p>
+      </div>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("token");
+        const userStr = localStorage.getItem("user");
+
+        // Element ต่างๆ บน Navbar
+        const btnNavLogin = document.getElementById("btn-nav-login");
+        const navProfile = document.getElementById("nav-profile");
+        const navUsername = document.getElementById("nav-username");
+        const navUsernameMobile = document.getElementById(
+          "nav-username-mobile",
+        );
+        const btnLogout = document.getElementById("btn-logout");
+
+        // 2. เช็คว่ามี Token ไหม (ถ้ามี = ล็อกอินแล้วแน่นอน)
+        if (token) {
+          // ซ่อนปุ่ม Login แล้วโชว์รูปโปรไฟล์แทน
+          if (btnNavLogin) btnNavLogin.classList.add("hidden");
+          if (navProfile) navProfile.classList.remove("hidden");
+
+          try {
+            // เช็คให้ชัวร์ว่า userStr ไม่ใช่ความว่างเปล่า และไม่ใช่คำว่า "undefined"
+            if (userStr && userStr !== "undefined" && userStr !== "null") {
+              const user = JSON.parse(userStr);
+
+              // เอาชื่ออีเมลมาแสดง
+              if (user && user.email) {
+                const displayName = user.email.split("@")[0];
+                if (navUsername) navUsername.innerText = displayName;
+                if (navUsernameMobile)
+                  navUsernameMobile.innerText = displayName;
+              }
+            } else {
+              // กรณีที่ Backend ไม่ได้ส่งข้อมูล User มาให้ (มีแต่ Token)
+              // เราก็จะแสดงชื่อพื้นฐานไปก่อน ระบบจะได้ไม่พังครับ
+              if (navUsername) navUsername.innerText = "Player";
+              if (navUsernameMobile) navUsernameMobile.innerText = "Player";
+            }
+          } catch (error) {
+            console.warn(
+              "ไม่สามารถอ่านข้อมูล User ได้ แต่ยังคงล็อกอินอยู่:",
+              error,
+            );
+            if (navUsername) navUsername.innerText = "Player";
+            if (navUsernameMobile) navUsernameMobile.innerText = "Player";
+          }
+        }
+
+        // 3. ระบบคลิกปุ่ม "ออกจากระบบ"
+        if (btnLogout) {
+          btnLogout.addEventListener("click", () => {
+            // ลบข้อมูลออกให้หมด
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+
+            // รีเฟรชหน้าเว็บ
+            window.location.reload();
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html class="dark" lang="th">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>ชำระเงิน - GAMELORD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promptpay-qr@0.5.0/dist/promptpay-qr.browser.js"></script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #020412; color: #e0e3e5; }
+        .glass-panel { background: rgba(10, 16, 61, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        canvas { border-radius: 12px; border: 8px solid white; } /* แอปธนาคารสแกนง่ายขึ้นเมื่อมีขอบขาว */
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+
+    <div class="glass-panel max-w-md w-full p-8 rounded-3xl text-center shadow-2xl">
+        <h1 class="text-2xl font-bold mb-2 text-white">Scan to Pay</h1>
+        <p class="text-slate-400 mb-6">กรุณาสแกน QR Code ด้านล่างเพื่อชำระเงิน</p>
+
+        <div id="qrcode-container" class="flex justify-center mb-6">
+            <div class="animate-pulse bg-slate-800 w-[250px] h-[250px] rounded-xl flex items-center justify-center">
+                <span class="text-slate-500">กำลังสร้าง QR Code...</span>
+            </div>
+        </div>
+
+        <div class="bg-white/5 rounded-2xl p-4 mb-6">
+            <p class="text-slate-400 text-sm uppercase font-bold tracking-widest">ยอดเงินที่ต้องชำระ</p>
+            <p class="text-4xl font-black text-cyan-400 mt-1">฿<span id="display-amount">0.00</span></p>
+        </div>
+
+        <button onclick="window.history.back()" class="text-slate-500 hover:text-white transition-colors text-sm font-bold">
+            ← ย้อนกลับไปแก้ไขยอดเงิน
+        </button>
+    </div>
+
+    <script>
+        // --- ส่วนของ JavaScript ที่คุณถามว่าต้องใส่ตรงไหน ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. ดึงค่าจาก URL Parameter (?amount=xxx)
+            const urlParams = new URLSearchParams(window.location.search);
+            const amount = parseFloat(urlParams.get('amount'));
+            
+            // 2. ตั้งค่าเบอร์ PromptPay ของคุณ
+            const PROMPTPAY_ID = "0812345678"; // <--- *** เปลี่ยนเป็นเบอร์ของคุณ ***
+
+            if (!amount || amount <= 0) {
+                alert("ไม่พบยอดเงินที่ถูกต้อง");
+                window.location.href = 'index.html'; // ส่งกลับหน้าหลักถ้าไม่มีเงิน
+                return;
+            }
+
+            // แสดงตัวเลขบนหน้าจอ
+            document.getElementById('display-amount').innerText = amount.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            // 3. ฟังก์ชันสร้าง QR Code
+            generateQRCode(PROMPTPAY_ID, amount);
+        });
+
+        async function generateQRCode(id, amount) {
+            try {
+                // สร้าง Payload ตามมาตรฐาน PromptPay
+                const payload = PromptPayQR(id, { amount: amount });
+                
+                // เลือก Container
+                const container = document.getElementById('qrcode-container');
+                container.innerHTML = ""; // ล้าง Loading ออก
+
+                // สร้าง Canvas สำหรับวาด QR
+                const canvas = document.createElement('canvas');
+                
+                // วาด QR Code
+                await QRCode.toCanvas(canvas, payload, {
+                    width: 260,
+                    margin: 2,
+                    color: {
+                        dark: '#000000',
+                        light: '#ffffff'
+                    }
+                });
+
+                container.appendChild(canvas);
+            } catch (err) {
+                console.error(err);
+                alert("เกิดข้อผิดพลาดในการสร้าง QR Code");
+            }
+        }
+    </script>
+</body>
+</html>

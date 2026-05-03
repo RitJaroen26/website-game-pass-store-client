@@ -1,0 +1,334 @@
+<!doctype html>
+<html class="dark" lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>GAMELORD - เข้าสู่ระบบ</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;700&family=Manrope:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .glass-panel {
+        background: rgba(10, 16, 61, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .text-gradient {
+        background: linear-gradient(to right, #2563eb, #00f2ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .glow-button {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        border-radius: 8px;
+        background-color: #0f172a;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 1px solid rgba(0, 242, 255, 0.5);
+        cursor: pointer;
+        font-weight: bold;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .glow-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+      }
+
+      .glow-button .loading-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(
+          -225deg,
+          #00f2ff 0%,
+          #2563eb 50%,
+          #00f2ff 100%
+        );
+        filter: blur(15px);
+        opacity: 0;
+        z-index: 0;
+        transition: opacity 0.3s;
+      }
+
+      .glow-button.is-loading .loading-glow {
+        opacity: 0.5;
+        animation: animate-glow 2s linear infinite;
+      }
+
+      @keyframes animate-glow {
+        0% {
+          transform: scale(1.2) rotate(0deg);
+        }
+        100% {
+          transform: scale(1.2) rotate(360deg);
+        }
+      }
+
+      .glow-button span {
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Animation สำหรับสลับฟอร์ม */
+      .fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: { tertiary: "#00f2ff" },
+            fontFamily: { sans: ["Inter", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-[#020412] text-[#e0e3e5] min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
+  >
+    <!-- พื้นหลังตกแต่ง (แสงวงกลม) -->
+    <div
+      class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-blue-600/20 rounded-full blur-[100px] pointer-events-none"
+    ></div>
+    <div
+      class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-cyan-400/10 rounded-full blur-[100px] pointer-events-none"
+    ></div>
+
+    <!-- โลโก้ -->
+    <div class="mb-8 text-center z-10">
+      <div
+        class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 cursor-pointer tracking-widest font-['Space_Grotesk']"
+      >
+        GAMELORD
+      </div>
+      <p class="text-slate-400 text-sm mt-2">
+        ศูนย์รวมไอดีและเครดิตเกมอันดับ 1
+      </p>
+    </div>
+
+    <!-- กล่อง Form -->
+    <main class="glass-panel p-8 rounded-2xl w-full max-w-md z-10 shadow-2xl">
+      <!-- ส่วนหัวของฟอร์ม -->
+      <div class="text-center mb-8">
+        <h1 id="form-title" class="text-2xl font-bold text-white mb-2">
+          เข้าสู่ระบบ
+        </h1>
+        <p id="form-subtitle" class="text-slate-400 text-sm">
+          ยินดีต้อนรับกลับมา! กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ
+        </p>
+      </div>
+
+      <!-- ฟอร์ม -->
+      <form id="auth-form" class="space-y-5">
+        <!-- ช่องกรอกอีเมล -->
+        <div class="space-y-1">
+          <label
+            class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1"
+            >อีเมล</label
+          >
+          <div class="relative">
+            <span
+              class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xl"
+              >mail</span
+            >
+            <input
+              id="email"
+              type="email"
+              required
+              class="w-full bg-[#0a0f1c] border border-slate-700 focus:border-tertiary focus:ring-1 focus:ring-tertiary rounded-lg py-3 pl-11 pr-4 text-white text-sm outline-none transition-all"
+              placeholder="player@gamelord.com"
+            />
+          </div>
+        </div>
+
+        <!-- ช่องกรอกรหัสผ่าน -->
+        <div class="space-y-1">
+          <label
+            class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1"
+            >รหัสผ่าน</label
+          >
+          <div class="relative">
+            <span
+              class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xl"
+              >lock</span
+            >
+            <input
+              id="password"
+              type="password"
+              required
+              class="w-full bg-[#0a0f1c] border border-slate-700 focus:border-tertiary focus:ring-1 focus:ring-tertiary rounded-lg py-3 pl-11 pr-4 text-white text-sm outline-none transition-all"
+              placeholder="••••••••"
+            />
+          </div>
+        </div>
+
+        <!-- ปุ่ม Submit -->
+        <button type="submit" id="btn-submit" class="glow-button mt-6">
+          <div class="loading-glow"></div>
+          <span id="btn-text" class="flex items-center gap-2"
+            >เข้าสู่ระบบ
+            <span class="material-symbols-outlined text-sm">login</span></span
+          >
+        </button>
+      </form>
+
+      <!-- ลิงก์สลับหน้า -->
+      <div class="mt-6 text-center text-sm text-slate-400">
+        <span id="toggle-text">ยังไม่มีบัญชีใช่ไหม?</span>
+        <button
+          id="btn-toggle-mode"
+          class="text-tertiary font-bold hover:text-white transition-colors ml-1 border-b border-transparent hover:border-tertiary"
+        >
+          สมัครสมาชิกที่นี่
+        </button>
+      </div>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let isLoginMode = true;
+
+        const formTitle = document.getElementById("form-title");
+        const formSubtitle = document.getElementById("form-subtitle");
+        const authForm = document.getElementById("auth-form");
+        const emailInput = document.getElementById("email");
+
+        emailInput.addEventListener("blur", function () {
+          this.value = this.value.trim();
+        });
+
+        const passwordInput = document.getElementById("password");
+        const btnSubmit = document.getElementById("btn-submit");
+        const btnText = document.getElementById("btn-text");
+        const toggleText = document.getElementById("toggle-text");
+        const btnToggleMode = document.getElementById("btn-toggle-mode");
+
+        btnToggleMode.addEventListener("click", () => {
+          isLoginMode = !isLoginMode; 
+
+          emailInput.value = "";
+          passwordInput.value = "";
+
+          authForm.classList.remove("fade-in");
+          void authForm.offsetWidth; 
+          authForm.classList.add("fade-in");
+
+          if (isLoginMode) {
+            formTitle.innerText = "เข้าสู่ระบบ";
+            formSubtitle.innerText =
+              "ยินดีต้อนรับกลับมา! กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ";
+            btnText.innerHTML =
+              'เข้าสู่ระบบ <span class="material-symbols-outlined text-sm">login</span>';
+            toggleText.innerText = "ยังไม่มีบัญชีใช่ไหม?";
+            btnToggleMode.innerText = "สมัครสมาชิกที่นี่";
+          } else {
+            formTitle.innerText = "สร้างบัญชีใหม่";
+            formSubtitle.innerText =
+              "สมัครสมาชิกเพื่อรับกระเป๋าเงิน 0 บาทอัตโนมัติ";
+            btnText.innerHTML =
+              'สมัครสมาชิก <span class="material-symbols-outlined text-sm">person_add</span>';
+            toggleText.innerText = "มีบัญชีอยู่แล้ว?";
+            btnToggleMode.innerText = "เข้าสู่ระบบ";
+          }
+        });
+
+
+        authForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const email = emailInput.value.trim();
+          const password = passwordInput.value.trim();
+
+          if (!email || !password) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+
+          btnSubmit.classList.add("is-loading");
+          btnSubmit.disabled = true;
+          const originalBtnText = btnText.innerHTML;
+          btnText.innerHTML = "กำลังดำเนินการ...";
+
+          const apiUrl = isLoginMode
+            ? "http://localhost:4000/api/auth/login"
+            : "http://localhost:4000/api/auth/register";
+
+          try {
+            const response = await fetch(apiUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email, password }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+              if (isLoginMode) {
+                localStorage.setItem("token", result.data.token);
+                localStorage.setItem("user", JSON.stringify(result.data.user));
+
+                window.location.href = "Homepage.html";
+              } else {
+                alert(
+                  "สมัครสมาชิกสำเร็จ! กระเป๋าเงินของคุณถูกสร้างแล้ว กรุณาเข้าสู่ระบบ",
+                );
+                btnToggleMode.click(); 
+              }
+            } else {
+              alert(
+                "ข้อผิดพลาด: " + (result.message || "เกิดข้อผิดพลาดบางอย่าง"),
+              );
+            }
+          } catch (error) {
+            console.error("API Error:", error);
+            alert(
+              "ไม่สามารถติดต่อเซิร์ฟเวอร์ได้ กรุณาตรวจสอบว่าเปิด Backend (npm run dev) แล้วหรือยัง",
+            );
+          } finally {
+            btnSubmit.classList.remove("is-loading");
+            btnSubmit.disabled = false;
+            btnText.innerHTML = originalBtnText;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
