@@ -105,7 +105,7 @@
       }
     </style>
 
-    <script id="tailwind-config">
+    <!-- <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
         theme: {
@@ -116,45 +116,114 @@
           },
         },
       };
+    </script> -->
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#adc7ff",
+              "on-tertiary": "#00363a",
+              "surface-tint": "#adc7ff",
+              "inverse-surface": "#e0e3e5",
+              "on-tertiary-fixed": "#002022",
+              "surface-container-lowest": "#0b0f10",
+              "on-secondary": "#282d53",
+              "on-background": "#e0e3e5",
+              "surface-variant": "#323537",
+              "primary-container": "#4a8eff",
+              "on-secondary-container": "#b1b5e3",
+              "secondary-container": "#41466e",
+              "surface-dim": "#101415",
+              secondary: "#bfc3f2",
+              "tertiary-container": "#00a0a9",
+              "inverse-primary": "#005bc0",
+              "on-primary-container": "#00285b",
+              "tertiary-fixed": "#74f5ff",
+              "on-secondary-fixed-variant": "#3f446b",
+              "on-primary-fixed": "#001a41",
+              "on-error": "#690005",
+              "inverse-on-surface": "#2d3133",
+              "secondary-fixed-dim": "#bfc3f2",
+              surface: "#101415",
+              "tertiary-fixed-dim": "#00dbe7",
+              "on-tertiary-fixed-variant": "#004f54",
+              "surface-container-highest": "#323537",
+              "on-surface": "#e0e3e5",
+              "secondary-fixed": "#dfe0ff",
+              "surface-bright": "#363a3b",
+              "on-error-container": "#ffdad6",
+              "surface-container-low": "#191c1e",
+              "on-surface-variant": "#c1c6d7",
+              tertiary: "#00dbe7", // เอาสี tertiary ของหน้าเติมเงินมารวมไว้ให้แล้วครับ
+              "on-primary-fixed-variant": "#004493",
+              "primary-fixed": "#d8e2ff",
+              "surface-container-high": "#272a2c",
+              "surface-container": "#1d2022",
+              "on-tertiary-container": "#002f32",
+              outline: "#8b90a0",
+              "on-secondary-fixed": "#13183d",
+              error: "#ffb4ab",
+              "outline-variant": "#414754",
+              "error-container": "#93000a",
+              primary: "#adc7ff",
+              background: "#101415",
+              "on-primary": "#002e68",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              // ⭐ ตัวการที่ทำให้ Navbar เพี้ยนอยู่ที่นี่ครับ!
+              sm: "16px",
+              "container-max": "1280px",
+              lg: "40px",
+              base: "4px",
+              gutter: "20px",
+              md: "24px",
+              xs: "8px",
+              xl: "64px",
+            },
+            fontFamily: {
+              "body-lg": ["Manrope"],
+              "label-bold": ["Inter"],
+              "headline-lg": ["Space Grotesk"],
+              "headline-md": ["Space Grotesk"],
+              "body-md": ["Manrope"],
+              display: ["Space Grotesk"],
+              headline: ["Space Grotesk"],
+              body: ["Manrope"],
+              label: ["Inter"],
+            },
+            fontSize: {
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "label-bold": ["14px", { lineHeight: "1.2", fontWeight: "700" }],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              display: [
+                "48px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+            },
+          },
+        },
+      };
     </script>
   </head>
 
   <body
     class="bg-[#020412] text-[#e0e3e5] min-h-screen flex flex-col font-['Inter']"
   >
-    <nav
-      class="fixed top-0 w-full z-50 border-b border-white/10 bg-[#020412]/80 backdrop-blur-xl"
-    >
-      <div
-        class="flex justify-between items-center h-20 px-8 max-w-[1280px] mx-auto w-full"
-      >
-        <div
-          class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 cursor-pointer"
-          onclick="window.location.href = 'Homepage.html'"
-        >
-          RANDOM | ID
-        </div>
-        <div class="hidden md:flex items-center gap-8 font-bold text-sm">
-          <a class="text-slate-400 hover:text-white transition-colors" href="#"
-            >Marketplace</a
-          >
-          <a class="text-slate-400 hover:text-white transition-colors" href="#"
-            >Sell Account</a
-          >
-          <a class="text-slate-400 hover:text-white transition-colors" href="#"
-            >Boosting</a
-          >
-          <a class="text-slate-400 hover:text-white transition-colors" href="#"
-            >Support</a
-          >
-        </div>
-        <button
-          class="bg-gradient-to-r from-blue-600 to-cyan-400 px-6 py-2 rounded-lg font-bold text-white hover:opacity-90 active:scale-95 transition-all"
-        >
-          Connect Wallet
-        </button>
-      </div>
-    </nav>
+    <div id="navbar-placeholder"></div>
 
     <main
       class="flex-grow pt-32 pb-16 px-4 md:px-8 max-w-[1280px] mx-auto w-full"
@@ -192,7 +261,7 @@
                   ยอดคงเหลือปัจจุบัน
                 </p>
                 <p class="text-white text-3xl font-black">
-                  1,250.00
+                  <span id="page-wallet-balance">0.00</span>
                   <span class="text-sm text-tertiary font-bold">THB</span>
                 </p>
               </div>
@@ -482,6 +551,7 @@
       }
     </style>
 
+    <script src="script/navbar.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         // กำหนดเบอร์โทรศัพท์ หรือ เลขบัตรประชาชน PromptPay ของคุณที่นี่
@@ -575,13 +645,20 @@
           qrImage.src = `https://promptpay.io/${PROMPTPAY_ID}/${currentSelectedAmount}.png`;
         });
 
-        // 4. กดปุ่ม "ยกเลิก"
-        btnCancel.addEventListener("click", () => {
-          resetToCheckout();
+        slipUpload.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            selectedFile = file;
+            fileNameSpan.innerText = file.name;
+            fileNameDisplay.classList.remove("hidden");
+            btnConfirmSlip.classList.remove("hidden");
+          }
         });
 
         btnConfirmSlip.addEventListener("click", async () => {
           if (!selectedFile) return alert("กรุณาอัปโหลดสลิปโอนเงินก่อนครับ");
+          if (currentSelectedAmount <= 0)
+            return alert("กรุณาเลือกจำนวนเงินก่อนครับ");
 
           const originalContent = btnConfirmSlip.innerHTML;
           btnConfirmSlip.innerHTML = "<span>กำลังตรวจสอบสลิป...</span>";
@@ -589,12 +666,14 @@
 
           const formData = new FormData();
           formData.append("slipImage", selectedFile);
+          formData.append("amount", currentSelectedAmount);
 
           try {
             const token = localStorage.getItem("token");
 
             if (!token) {
               alert("กรุณาเข้าสู่ระบบก่อนทำรายการ");
+              window.location.href = "Login.html";
               return;
             }
 
@@ -614,7 +693,9 @@
             if (response.ok) {
               alert(
                 "เติมเงินสำเร็จ! ยอดเงินใหม่ของคุณคือ: ฿" +
-                  result.data.newBalance,
+                  parseFloat(result.data.newBalance).toLocaleString("th-TH", {
+                    minimumFractionDigits: 2,
+                  }),
               );
               window.location.reload();
             } else {

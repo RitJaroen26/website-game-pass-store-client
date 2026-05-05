@@ -39,6 +39,11 @@ function initNavbarLogic() {
         if (navBalance && result.data && result.data.balance !== undefined) {
           navBalance.innerText = `฿${parseFloat(result.data.balance).toLocaleString("th-TH", { minimumFractionDigits: 2 })}`;
         }
+
+        const pageWalletBalance = document.getElementById("page-wallet-balance");
+        if (pageWalletBalance && result.data && result.data.balance !== undefined) {
+          pageWalletBalance.innerText = parseFloat(result.data.balance).toLocaleString("th-TH", { minimumFractionDigits: 2 });
+        }
       }
     } catch (error) {
       console.error("ไม่สามารถดึงข้อมูลยอดเงินได้:", error);
