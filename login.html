@@ -159,18 +159,24 @@
 
       <!-- ฟอร์ม -->
       <form id="auth-form" class="space-y-5">
-        <div id="username-container" class="hidden mb-4">
+        <div class="space-y-1" id="username-container">
           <label
-            for="username"
-            class="block text-sm font-medium text-slate-300 mb-1"
-            >ชื่อผู้ใช้งาน (Username)</label
+            class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1"
+            >ชื่อผู้ใช้</label
           >
-          <input
-            type="text"
-            id="username"
-            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors"
-            placeholder="ตั้งชื่อเท่ๆ ของคุณ"
-          />
+          <div class="relative">
+            <span
+              class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xl"
+              >person</span
+            >
+            <input
+              id="username"
+              type="text"
+              required
+              class="w-full bg-[#0a0f1c] border border-slate-700 focus:border-tertiary focus:ring-1 focus:ring-tertiary rounded-lg py-3 pl-11 pr-4 text-white text-sm outline-none transition-all"
+              placeholder="Username"
+            />
+          </div>
         </div>
         <!-- ช่องกรอกอีเมล -->
         <div class="space-y-1">
@@ -188,7 +194,7 @@
               type="email"
               required
               class="w-full bg-[#0a0f1c] border border-slate-700 focus:border-tertiary focus:ring-1 focus:ring-tertiary rounded-lg py-3 pl-11 pr-4 text-white text-sm outline-none transition-all"
-              placeholder="player@gamelord.com"
+              placeholder="Email"
             />
           </div>
         </div>
@@ -238,29 +244,65 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        let isLoginMode = true;
+        let isLoginMode = true; // เริ่มต้นที่โหมด Login เสมอ
 
         const formTitle = document.getElementById("form-title");
         const formSubtitle = document.getElementById("form-subtitle");
         const authForm = document.getElementById("auth-form");
+
+        // ดึง Input ต่างๆ
         const emailInput = document.getElementById("email");
-
-        emailInput.addEventListener("blur", function () {
-          this.value = this.value.trim();
-        });
-
+        const passwordInput = document.getElementById("password");
         const usernameInput = document.getElementById("username");
         const usernameContainer = document.getElementById("username-container");
 
-        const passwordInput = document.getElementById("password");
         const btnSubmit = document.getElementById("btn-submit");
         const btnText = document.getElementById("btn-text");
         const toggleText = document.getElementById("toggle-text");
         const btnToggleMode = document.getElementById("btn-toggle-mode");
 
+        emailInput.addEventListener("blur", function () {
+          this.value = this.value.trim();
+        });
+
+        // ⭐ 1. แยกโค้ดเปลี่ยนหน้าตาฟอร์มออกมาเป็นฟังก์ชัน
+        function updateFormUI() {
+          if (isLoginMode) {
+            // โหมด: เข้าสู่ระบบ
+            formTitle.innerText = "เข้าสู่ระบบ";
+            formSubtitle.innerText =
+              "ยินดีต้อนรับกลับมา! กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ";
+            btnText.innerHTML =
+              'เข้าสู่ระบบ <span class="material-symbols-outlined text-sm">login</span>';
+            toggleText.innerText = "ยังไม่มีบัญชีใช่ไหม?";
+            btnToggleMode.innerText = "สมัครสมาชิกที่นี่";
+
+            // บังคับซ่อนช่อง Username ทันที
+            if (usernameContainer) usernameContainer.classList.add("hidden");
+            if (usernameInput) usernameInput.required = false;
+          } else {
+            // โหมด: สมัครสมาชิก
+            formTitle.innerText = "สร้างบัญชีใหม่";
+            formSubtitle.innerText =
+              "สมัครสมาชิกเพื่อรับกระเป๋าเงิน 0 บาทอัตโนมัติ";
+            btnText.innerHTML =
+              'สมัครสมาชิก <span class="material-symbols-outlined text-sm">person_add</span>';
+            toggleText.innerText = "มีบัญชีอยู่แล้ว?";
+            btnToggleMode.innerText = "เข้าสู่ระบบ";
+
+            // โชว์ช่อง Username
+            if (usernameContainer) usernameContainer.classList.remove("hidden");
+            if (usernameInput) usernameInput.required = true;
+          }
+        }
+
+        // ⭐ 2. สั่งรันฟังก์ชันทันทีที่โหลดเว็บเสร็จ (เพื่อบังคับซ่อน Username ตั้งแต่แรก)
+        updateFormUI();
+
         btnToggleMode.addEventListener("click", () => {
           isLoginMode = !isLoginMode;
 
+          // เคลียร์ค่าในฟอร์มทุกครั้งที่สลับโหมด
           emailInput.value = "";
           passwordInput.value = "";
           if (usernameInput) usernameInput.value = "";
@@ -269,27 +311,8 @@
           void authForm.offsetWidth;
           authForm.classList.add("fade-in");
 
-          if (isLoginMode) {
-            formTitle.innerText = "เข้าสู่ระบบ";
-            formSubtitle.innerText =
-              "ยินดีต้อนรับกลับมา! กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ";
-            btnText.innerHTML =
-              'เข้าสู่ระบบ <span class="material-symbols-outlined text-sm">login</span>';
-            toggleText.innerText = "ยังไม่มีบัญชีใช่ไหม?";
-            btnToggleMode.innerText = "สมัครสมาชิกที่นี่";
-            if (usernameContainer) usernameContainer.classList.add("hidden");
-            if (usernameInput) usernameInput.required = false;
-          } else {
-            formTitle.innerText = "สร้างบัญชีใหม่";
-            formSubtitle.innerText =
-              "สมัครสมาชิกเพื่อรับกระเป๋าเงิน 0 บาทอัตโนมัติ";
-            btnText.innerHTML =
-              'สมัครสมาชิก <span class="material-symbols-outlined text-sm">person_add</span>';
-            toggleText.innerText = "มีบัญชีอยู่แล้ว?";
-            btnToggleMode.innerText = "เข้าสู่ระบบ";
-            if (usernameContainer) usernameContainer.classList.remove("hidden");
-            if (usernameInput) usernameInput.required = true;
-          }
+          // ⭐ 3. เรียกฟังก์ชันอัปเดตหน้าตาฟอร์มหลังจากกดปุ่ม
+          updateFormUI();
         });
 
         authForm.addEventListener("submit", async (e) => {
@@ -297,6 +320,7 @@
 
           const email = emailInput.value.trim();
           const password = passwordInput.value.trim();
+          const username = usernameInput ? usernameInput.value.trim() : "";
 
           if (isLoginMode) {
             if (!email || !password)
@@ -338,7 +362,7 @@
                 window.location.href = "Homepage.html";
               } else {
                 alert(
-                  "สมัครสมาชิกสำเร็จ! กระเป๋าเงินของคุณถูกสร้างแล้ว กรุณาเข้าสู่ระบบ",
+                  "สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบด้วยบัญชีที่คุณเพิ่งสร้าง",
                 );
                 btnToggleMode.click();
               }
@@ -350,7 +374,7 @@
           } catch (error) {
             console.error("API Error:", error);
             alert(
-              "ไม่สามารถติดต่อเซิร์ฟเวอร์ได้ กรุณาตรวจสอบว่าเปิด Backend (npm run dev) แล้วหรือยัง",
+              "ไม่สามารถติดต่อเซิร์ฟเวอร์ได้ กรุณาตรวจสอบว่าเปิด Backend แล้วหรือยัง",
             );
           } finally {
             btnSubmit.classList.remove("is-loading");
