@@ -1,0 +1,365 @@
+<!DOCTYPE html><html class="dark" lang="th"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>GAMELORD - User Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&amp;family=Manrope:wght@400;500;600&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#dfe0ff",
+                        "on-surface": "#e0e3e5",
+                        "on-background": "#e0e3e5",
+                        "surface-container-low": "#191c1e",
+                        "tertiary-container": "#00a0a9",
+                        "on-error": "#690005",
+                        "outline": "#8b90a0",
+                        "surface-dim": "#101415",
+                        "surface-variant": "#323537",
+                        "surface-tint": "#adc7ff",
+                        "outline-variant": "#414754",
+                        "on-primary-container": "#00285b",
+                        "primary": "#adc7ff",
+                        "inverse-surface": "#e0e3e5",
+                        "surface-container-lowest": "#0b0f10",
+                        "surface-container-high": "#272a2c",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary-container": "#41466e",
+                        "secondary-fixed-dim": "#bfc3f2",
+                        "on-tertiary-fixed-variant": "#004f54",
+                        "on-tertiary-fixed": "#002022",
+                        "on-secondary": "#282d53",
+                        "surface-container": "#1d2022",
+                        "on-primary-fixed-variant": "#004493",
+                        "inverse-on-surface": "#2d3133",
+                        "surface": "#101415",
+                        "on-secondary-container": "#b1b5e3",
+                        "on-primary-fixed": "#001a41",
+                        "on-tertiary-container": "#002f32",
+                        "background": "#101415",
+                        "tertiary-fixed": "#74f5ff",
+                        "on-error-container": "#ffdad6",
+                        "primary-container": "#4a8eff",
+                        "on-tertiary": "#00363a",
+                        "tertiary": "#00dbe7",
+                        "secondary": "#bfc3f2",
+                        "on-surface-variant": "#c1c6d7",
+                        "error-container": "#93000a",
+                        "tertiary-fixed-dim": "#00dbe7",
+                        "on-primary": "#002e68",
+                        "error": "#ffb4ab",
+                        "surface-bright": "#363a3b",
+                        "primary-fixed-dim": "#adc7ff",
+                        "on-secondary-fixed-variant": "#3f446b",
+                        "inverse-primary": "#005bc0",
+                        "surface-container-highest": "#323537",
+                        "on-secondary-fixed": "#13183d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "display": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(10, 16, 61, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-border {
+            position: relative;
+        }
+        .glow-border::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background: linear-gradient(to right, #007BFF, #00dbe7);
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(8px);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(0, 219, 231, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-[#020412] text-on-surface font-body min-h-screen antialiased selection:bg-tertiary/30 selection:text-tertiary">
+<!-- Top Navigation (Mobile/Tablet) -->
+<nav class="fixed top-0 w-full z-50 border-b border-[#414754] bg-[#101415]/80 backdrop-blur-xl lg:hidden">
+<div class="px-6 py-4 flex justify-between items-center">
+<div class="text-2xl font-black italic text-[#adc7ff] uppercase tracking-widest font-display">GAMELORD</div>
+<div class="flex gap-4 items-center">
+<button class="text-[#c1c6d7] hover:text-[#00dbe7] transition-colors active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-[#c1c6d7] hover:text-[#00dbe7] transition-colors active:scale-95">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</button>
+</div>
+</div>
+</nav>
+<div class="flex h-screen overflow-hidden pt-[72px] lg:pt-0">
+<!-- Side Navigation (Desktop) -->
+<aside class="hidden lg:flex flex-col h-screen fixed left-0 top-0 pt-8 pb-8 px-4 w-64 border-r border-[#414754] bg-[#0b0f10] z-40">
+<div class="mb-10 px-4">
+<div class="text-2xl font-black italic text-[#007BFF] uppercase tracking-widest font-display text-glow">RANDOM | ID</div>
+</div>
+<nav class="flex-1 space-y-2 font-body font-medium">
+<!-- Dashboard (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#007BFF]/10 text-[#00dbe7] border-r-4 border-[#00dbe7] rounded-l-md transition-colors hover:bg-[#1d2022]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">grid_view</span>
+<span class="">Dashboard</span>
+</a>
+<!-- Inventory -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#8b90a0] hover:text-[#e0e3e5] rounded-md transition-colors hover:bg-[#1d2022]" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="">Inventory</span>
+</a>
+<!-- Top-up -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#8b90a0] hover:text-[#e0e3e5] rounded-md transition-colors hover:bg-[#1d2022]" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="">Top-up</span>
+</a>
+<!-- History -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#8b90a0] hover:text-[#e0e3e5] rounded-md transition-colors hover:bg-[#1d2022]" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="">History</span>
+</a>
+<!-- Security -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#8b90a0] hover:text-[#e0e3e5] rounded-md transition-colors hover:bg-[#1d2022]" href="#">
+<span class="material-symbols-outlined">lock_person</span>
+<span class="">Security</span>
+</a>
+<!-- Support -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#8b90a0] hover:text-[#e0e3e5] rounded-md transition-colors hover:bg-[#1d2022]" href="#">
+<span class="material-symbols-outlined">help_center</span>
+<span class="">Support</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full py-3 bg-gradient-to-r from-[#007BFF] to-[#00dbe7] text-white rounded-lg font-bold font-label text-sm uppercase tracking-wider hover:shadow-[0_0_15px_rgba(0,219,231,0.6)] transition-all">
+                    Upgrade to Pro
+                </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto lg:ml-64 relative w-full">
+<!-- Background Elements -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#007BFF] rounded-full mix-blend-screen filter blur-[150px] opacity-20"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-[#00dbe7] rounded-full mix-blend-screen filter blur-[150px] opacity-10"></div>
+</div>
+<div class="max-w-container-max mx-auto p-6 md:p-8 lg:p-10 relative z-10">
+<!-- User Header -->
+<header class="glass-panel rounded-xl p-8 mb-8 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden">
+<!-- Avatar -->
+<div class="relative shrink-0 glow-border rounded-full">
+<img alt="User Avatar" class="w-32 h-32 rounded-full object-cover border-4 border-[#020412]" data-alt="A high-resolution, futuristic profile avatar of a cyberpunk gamer. The character wears an intricate sci-fi helmet with glowing neon cyan visors and dark metallic textures. The background is a deep, dark navy blue with subtle, out-of-focus digital data streams. The lighting is dramatic, high-contrast, emphasizing the glowing accents to fit a premium dark-mode gaming UI aesthetic." src="https://lh3.googleusercontent.com/aida/ADBb0uhjiGNF25zpG0iDB4XZBS0kF8nKwxUu3-BDjPh0DlES31ZlOf6yIuMh4da-x2GcKH7AzH11B9H_P9kdy_bDqEzw7cXdqXNkwvXQp69KRyYWn4FONEtVYi8p68DQ9rX_lsZKsmga79QESIkifPO4bTSyejasjjKaHJRlQjIxbqfKB5Ts2bLiVyy4umMpCSSvcdwThhfuTYJaNJeoF-FKHW6Z3ZYid50g2CuX6cia9uSwicwW_byo9clXZMWEz7-SoCbFC9h1QWonSCI">
+</div>
+<!-- Info -->
+<div class="flex-1 text-center md:text-left">
+<h1 class="font-display text-4xl font-bold text-white mb-2">Pond GorGay</h1>
+<div class="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-4">
+<span class="px-3 py-1 bg-[#00dbe7]/20 text-[#00dbe7] rounded-full text-xs font-label font-bold uppercase border border-[#00dbe7]/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stars</span>
+                                Elite Tier Collector
+                            </span>
+<span class="text-on-surface-variant text-sm font-label">ID: GL-99482A</span>
+</div>
+</div>
+<!-- Balance -->
+<div class="shrink-0 text-center md:text-right bg-[#020412]/50 p-6 rounded-lg border border-[#414754]">
+<p class="text-on-surface-variant text-sm font-label mb-1 uppercase tracking-wider">ยอดเงินคงเหลือ</p>
+<p class="font-display text-3xl font-bold text-[#00dbe7] text-glow">12,450.00 ฿</p>
+</div>
+</header>
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+<!-- Summary Cards -->
+<div class="glass-panel rounded-xl p-6 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-[#007BFF]/20 flex items-center justify-center text-[#007BFF]">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<span class="text-xs font-label text-on-surface-variant bg-[#1d2022] px-2 py-1 rounded">All Time</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label text-sm mb-1 uppercase">Total Purchases</p>
+<p class="font-display text-2xl font-bold text-white">48 Items</p>
+</div>
+</div>
+<div class="glass-panel rounded-xl p-6 flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-tertiary/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">local_offer</span>
+</div>
+<span class="text-xs font-label text-on-surface-variant bg-[#1d2022] px-2 py-1 rounded">Current</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label text-sm mb-1 uppercase">Active Listings</p>
+<p class="font-display text-2xl font-bold text-white">12 Assets</p>
+</div>
+</div>
+<div class="glass-panel rounded-xl p-6 flex flex-col justify-between relative overflow-hidden">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+</div>
+<div>
+<p class="text-on-surface-variant font-label text-sm mb-1 uppercase">Trust Score</p>
+<div class="flex items-end gap-2">
+<p class="font-display text-3xl font-bold text-white">98</p>
+<p class="text-sm text-emerald-400 mb-1">/ 100</p>
+</div>
+</div>
+<!-- Decorative pulse -->
+<div class="absolute -bottom-10 -right-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl"></div>
+</div>
+</div>
+<!-- Main Content Split -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<!-- Transactions Table -->
+<div class="xl:col-span-2 glass-panel rounded-xl p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-display text-xl font-bold text-white">ประวัติการสั่งซื้อ</h2>
+<button class="text-sm font-label text-tertiary hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-[#414754] text-on-surface-variant text-sm font-label uppercase tracking-wider">
+<th class="pb-3 px-4 font-semibold">Order ID</th>
+<th class="pb-3 px-4 font-semibold">Game</th>
+<th class="pb-3 px-4 font-semibold">Date</th>
+<th class="pb-3 px-4 font-semibold">Status</th>
+<th class="pb-3 px-4 font-semibold text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="text-sm font-body">
+<tr class="border-b border-[#414754]/50 hover:bg-[#1d2022]/50 transition-colors">
+<td class="py-4 px-4 font-mono text-[#adc7ff]">#GL-8832</td>
+<td class="py-4 px-4 text-white font-medium">Cyber Hunter Elite</td>
+<td class="py-4 px-4 text-on-surface-variant">24 Oct, 2023</td>
+<td class="py-4 px-4">
+<span class="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded text-xs font-bold uppercase">Completed</span>
+</td>
+<td class="py-4 px-4 text-right font-display font-bold text-white">4,500 ฿</td>
+</tr>
+<tr class="border-b border-[#414754]/50 hover:bg-[#1d2022]/50 transition-colors">
+<td class="py-4 px-4 font-mono text-[#adc7ff]">#GL-8831</td>
+<td class="py-4 px-4 text-white font-medium">Neon Drifter Pack</td>
+<td class="py-4 px-4 text-on-surface-variant">22 Oct, 2023</td>
+<td class="py-4 px-4">
+<span class="px-2 py-1 bg-[#007BFF]/20 text-[#007BFF] rounded text-xs font-bold uppercase">Processing</span>
+</td>
+<td class="py-4 px-4 text-right font-display font-bold text-white">1,250 ฿</td>
+</tr>
+<tr class="hover:bg-[#1d2022]/50 transition-colors">
+<td class="py-4 px-4 font-mono text-[#adc7ff]">#GL-8829</td>
+<td class="py-4 px-4 text-white font-medium">Void Walker Skin</td>
+<td class="py-4 px-4 text-on-surface-variant">18 Oct, 2023</td>
+<td class="py-4 px-4">
+<span class="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded text-xs font-bold uppercase">Completed</span>
+</td>
+<td class="py-4 px-4 text-right font-display font-bold text-white">8,900 ฿</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="flex flex-col gap-6">
+<div class="glass-panel rounded-xl p-6">
+<h2 class="font-display text-xl font-bold text-white mb-6">Quick Actions</h2>
+<div class="space-y-4">
+<button class="w-full flex items-center justify-between p-4 bg-[#0A103D] hover:bg-[#0A103D]/80 border border-[#007BFF]/30 hover:border-[#007BFF] rounded-lg transition-all group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-md bg-[#007BFF]/20 flex items-center justify-center text-[#007BFF] group-hover:bg-[#007BFF] group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">add_box</span>
+</div>
+<div class="text-left">
+<p class="font-bold text-white">List New Item</p>
+<p class="text-xs text-on-surface-variant font-label">Sell your digital assets</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-white transition-colors">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-[#0A103D] hover:bg-[#0A103D]/80 border border-tertiary/30 hover:border-tertiary rounded-lg transition-all group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-md bg-tertiary/20 flex items-center justify-center text-tertiary group-hover:bg-tertiary group-hover:text-[#0A103D] transition-colors">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div class="text-left">
+<p class="font-bold text-white">Top Up Balance</p>
+<p class="text-xs text-on-surface-variant font-label">Add funds to wallet</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-white transition-colors">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Mini Banner -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden h-full min-h-[160px] flex items-end">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-t from-[#020412] to-transparent z-10"></div>
+<div class="w-full h-full bg-[#007BFF]/20 blur-xl"></div>
+</div>
+<div class="relative z-10">
+<span class="px-2 py-1 bg-tertiary/20 text-tertiary text-[10px] font-bold uppercase rounded border border-tertiary/30 mb-2 inline-block">New Event</span>
+<h3 class="font-display font-bold text-lg text-white mb-1">Cyber Season 4 is Live</h3>
+<p class="text-sm text-on-surface-variant">Earn 2x XP on all trades this week.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Bottom Navigation (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 lg:hidden bg-[#101415]/95 backdrop-blur-md rounded-t-xl border-t border-[#414754] shadow-[0_-5px_25px_rgba(0,0,0,0.5)] font-label text-[10px] uppercase font-bold text-center">
+<!-- Explore -->
+<a class="flex flex-col items-center justify-center text-[#8b90a0] w-full h-full active:bg-[#1d2022] transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">explore</span>
+            Explore
+        </a>
+<!-- Inventory -->
+<a class="flex flex-col items-center justify-center text-[#8b90a0] w-full h-full active:bg-[#1d2022] transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">inventory_2</span>
+            Inventory
+        </a>
+<!-- Transactions -->
+<a class="flex flex-col items-center justify-center text-[#8b90a0] w-full h-full active:bg-[#1d2022] transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">swap_horiz</span>
+            Transactions
+        </a>
+<!-- Profile (Active) -->
+<a class="flex flex-col items-center justify-center text-[#00dbe7] w-full h-full relative after:content-[''] after:absolute after:-top-[1px] after:w-8 after:h-1 after:bg-[#00dbe7] after:shadow-[0_0_10px_#00dbe7] active:bg-[#1d2022] transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: &quot;FILL&quot; 1;">person</span>
+            Profile
+        </a>
+</nav>
+
+
+</body></html>
