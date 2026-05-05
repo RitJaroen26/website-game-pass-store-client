@@ -159,6 +159,19 @@
 
       <!-- ฟอร์ม -->
       <form id="auth-form" class="space-y-5">
+        <div id="username-container" class="hidden mb-4">
+          <label
+            for="username"
+            class="block text-sm font-medium text-slate-300 mb-1"
+            >ชื่อผู้ใช้งาน (Username)</label
+          >
+          <input
+            type="text"
+            id="username"
+            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors"
+            placeholder="ตั้งชื่อเท่ๆ ของคุณ"
+          />
+        </div>
         <!-- ช่องกรอกอีเมล -->
         <div class="space-y-1">
           <label
@@ -236,6 +249,9 @@
           this.value = this.value.trim();
         });
 
+        const usernameInput = document.getElementById("username");
+        const usernameContainer = document.getElementById("username-container");
+
         const passwordInput = document.getElementById("password");
         const btnSubmit = document.getElementById("btn-submit");
         const btnText = document.getElementById("btn-text");
@@ -243,13 +259,14 @@
         const btnToggleMode = document.getElementById("btn-toggle-mode");
 
         btnToggleMode.addEventListener("click", () => {
-          isLoginMode = !isLoginMode; 
+          isLoginMode = !isLoginMode;
 
           emailInput.value = "";
           passwordInput.value = "";
+          if (usernameInput) usernameInput.value = "";
 
           authForm.classList.remove("fade-in");
-          void authForm.offsetWidth; 
+          void authForm.offsetWidth;
           authForm.classList.add("fade-in");
 
           if (isLoginMode) {
@@ -260,6 +277,8 @@
               'เข้าสู่ระบบ <span class="material-symbols-outlined text-sm">login</span>';
             toggleText.innerText = "ยังไม่มีบัญชีใช่ไหม?";
             btnToggleMode.innerText = "สมัครสมาชิกที่นี่";
+            if (usernameContainer) usernameContainer.classList.add("hidden");
+            if (usernameInput) usernameInput.required = false;
           } else {
             formTitle.innerText = "สร้างบัญชีใหม่";
             formSubtitle.innerText =
@@ -268,9 +287,10 @@
               'สมัครสมาชิก <span class="material-symbols-outlined text-sm">person_add</span>';
             toggleText.innerText = "มีบัญชีอยู่แล้ว?";
             btnToggleMode.innerText = "เข้าสู่ระบบ";
+            if (usernameContainer) usernameContainer.classList.remove("hidden");
+            if (usernameInput) usernameInput.required = true;
           }
         });
-
 
         authForm.addEventListener("submit", async (e) => {
           e.preventDefault();
@@ -278,7 +298,13 @@
           const email = emailInput.value.trim();
           const password = passwordInput.value.trim();
 
-          if (!email || !password) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+          if (isLoginMode) {
+            if (!email || !password)
+              return alert("กรุณากรอกอีเมลและรหัสผ่านให้ครบถ้วน");
+          } else {
+            if (!email || !username || !password)
+              return alert("กรุณากรอกข้อมูลและชื่อผู้ใช้งานให้ครบถ้วน");
+          }
 
           btnSubmit.classList.add("is-loading");
           btnSubmit.disabled = true;
@@ -289,13 +315,17 @@
             ? "http://localhost:4000/api/auth/login"
             : "http://localhost:4000/api/auth/register";
 
+          const payload = isLoginMode
+            ? { email, password }
+            : { email, username, password };
+
           try {
             const response = await fetch(apiUrl, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ email, password }),
+              body: JSON.stringify(payload),
             });
 
             const result = await response.json();
@@ -310,7 +340,7 @@
                 alert(
                   "สมัครสมาชิกสำเร็จ! กระเป๋าเงินของคุณถูกสร้างแล้ว กรุณาเข้าสู่ระบบ",
                 );
-                btnToggleMode.click(); 
+                btnToggleMode.click();
               }
             } else {
               alert(
